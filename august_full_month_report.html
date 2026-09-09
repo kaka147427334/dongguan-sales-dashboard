@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>东莞销量看板 - 8月31日（8月整月）</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    font-size: 12px;
+    background: #f0f0f0;
+    padding: 20px;
+}
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+
+.board-title {
+    background: #43a047;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 0;
+    letter-spacing: 4px;
+}
+
+.title-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+}
+.title-meta .left { font-size: 13px; color: #333; font-weight: 600; }
+.title-meta .right { text-align: right; font-size: 12px; color: #666; }
+.title-meta .right .date { font-weight: bold; color: #2e7d32; font-size: 13px; }
+
+.table-wrapper { overflow-x: auto; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+}
+
+thead th {
+    background: #43a047;
+    color: white;
+    padding: 6px 4px;
+    text-align: center;
+    font-weight: 600;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    white-space: nowrap;
+    font-size: 12px;
+}
+thead th:last-child { border-right: none; }
+thead .cat-header th {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 4px;
+    letter-spacing: 1px;
+}
+
+/* 基础 td 样式 */
+tbody td {
+    padding: 5px 4px;
+    text-align: center;
+    border: 1px solid #d0d0d0;
+    white-space: nowrap;
+}
+
+/* 门店列居中 */
+tbody .col-name {
+    text-align: center;
+    font-weight: 500;
+    min-width: 140px;
+}
+
+/* ---- 行背景色 (参考原图) ---- */
+
+/* 东莞总计行: 中绿色 */
+tbody .row-dongguan {
+    background: #66bb6a;
+    color: white;
+    font-weight: bold;
+}
+tbody .row-dongguan td { border: 1px solid #81c784; }
+tbody .row-dongguan .col-name { color: white; }
+
+/* 集团行: 浅蓝色背景 */
+tbody .row-group {
+    background: #e3f2fd;
+    font-weight: 600;
+    color: #1565c0;
+}
+tbody .row-group td { border: 1px solid #bbdefb; }
+
+/* ---- 两个表格分区 ---- */
+.section-wrap {
+    margin: 8px 12px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.section-wrap .section-label {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 14px;
+    letter-spacing: 2px;
+}
+.section-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+}
+/* 分区一: 东莞 + 集团 → 蓝灰边框, 淡蓝底色 */
+.section-1 {
+    border: 3px solid #90caf9;
+    background: #f5f9ff;
+}
+.section-1 .section-label {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+.section-1 thead th {
+    background: #5c6bc0;
+}
+/* 分区二: 门店 → 绿边框, 淡绿底色 */
+.section-2 {
+    border: 3px solid #81c784;
+    background: #f5faf5;
+}
+.section-2 .section-label {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+.section-2 thead th {
+    background: #43a047;
+}
+
+/* 门店行: 白色/极浅绿交替 */
+tbody .row-store { background: white; }
+tbody .row-store:nth-child(even) { background: #f1f8e9; }
+
+/* ===== 高亮样式 (参考原图) ===== */
+
+/* 昨日净增 = 0 → 红色数字 */
+.zero-lock {
+    color: #d32f2f !important;
+    font-weight: bold;
+}
+
+/* 锁单达成率 前三名 → 绿色 (默认带背景) */
+.ach-top3 {
+    color: #2e7d32 !important;
+    font-weight: bold;
+    background: #e8f5e9;
+}
+
+/* 锁单达成率 后三名 → 红色 (默认带背景) */
+.ach-bottom3 {
+    color: #d32f2f !important;
+    font-weight: bold;
+    background: #ffebee;
+}
+
+/* 达成率/库存深度/现车占比 高亮 (默认带背景) */
+.ach-pink {
+    color: #d32f2f !important;
+    font-weight: bold;
+    background: #ffcdd2;
+}
+.ach-green {
+    color: #2e7d32 !important;
+    font-weight: bold;
+    background: #c8e6c9;
+}
+
+/* 门店明细(分区二)中：去掉背景色，仅保留数字变色+加粗 */
+.section-2 .ach-top3,
+.section-2 .ach-bottom3,
+.section-2 .ach-pink,
+.section-2 .ach-green {
+    background: transparent !important;
+}
+
+/* 周度订单板块显示（已开启） */
+th.col-weekly, td.col-weekly {
+    display: table-cell !important;
+}
+/* W5 区间已到，正常显示该列 */
+
+.sparkline {
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    background: #f5f5f5;
+    border-radius: 2px;
+    font-size: 10px;
+    color: #999;
+    line-height: 20px;
+}
+
+.note {
+    margin: 12px 16px;
+    padding: 8px 12px;
+    background: #fffde7;
+    border-left: 3px solid #ffd54f;
+    border-radius: 2px;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.8;
+}
+.note strong { color: #f57c00; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="board-title">东莞销量看板</div>
+
+<div class="title-meta">
+<div class="left">区域：东莞 · 8月整月报表</div>
+<div class="right">
+<div class="date">数据截止：8月31日</div>
+<div>月度时间进度：31/31 = 100%</div>
+</div>
+</div>
+
+<div style="text-align:right;margin:6px 0;">
+<a href="d_series_ranking.html" style="display:inline-block;padding:6px 18px;background:#1a6ec0;color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600;">D系订单排行榜 →</a>
+</div>
+
+<div class="table-wrapper">
+<div class="section-wrap section-1">
+<div class="section-label">东莞区域 · 集团汇总</div>
+
+<table>
+<thead>
+<tr class="cat-header">
+<th rowspan="2" style="width:140px;min-width:140px">门店</th>
+<th colspan="10">锁单</th>
+<th colspan="7">交付</th>
+<th colspan="2">库存</th>
+<th colspan="5" class="col-weekly">周度订单</th>
+</tr>
+<tr>
+<th>净增目标</th><th>月累计</th><th>达成率</th><th>城市份额</th><th style="min-width:85px">A系<br>目标120%</th><th style="min-width:70px">A系<br>完成</th><th style="min-width:78px">A系<br>完成率</th><th style="min-width:95px">B10+C10<br>目标120%</th><th style="min-width:80px">B10+C10<br>完成</th><th style="min-width:90px">B10+C10<br>完成率</th>
+<th>目标</th><th>月累计</th><th>达成率</th><th>城市份额</th><th style="min-width:95px">三个10<br>目标</th><th style="min-width:95px">三个10<br>完成</th><th style="min-width:95px">三个10<br>完成率</th>
+<th>现车占比</th><th>库存深度</th>
+<th class="col-weekly">W1<br>8.1-8.2</th><th class="col-weekly">W2<br>8.3-8.9</th><th class="col-weekly">W3<br>8.10-8.16</th><th class="col-weekly">W4<br>8.17-8.23</th><th class="col-weekly col-weekly-w5">W5<br>8.24-8.31</th><th class="col-weekly" style="min-width:90px">周订单趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-dongguan">
+<td class="col-name">东莞</td>
+<td>1155</td>
+<td>876</td>
+<td>75.8%</td>
+<td>100.0%</td>
+<td>321</td>
+<td>276</td>
+<td>86.0%</td>
+<td>267</td>
+<td>223</td>
+<td>83.5%</td>
+<td>1077</td>
+<td>828</td>
+<td>76.9%</td>
+<td>100.0%</td>
+<td>519</td>
+<td>460</td>
+<td>88.6%</td>
+<td>58.1%</td>
+<td>1.2</td>
+<td class="col-weekly">69</td>
+<td class="col-weekly">150</td>
+<td class="col-weekly">218</td>
+<td class="col-weekly">210</td>
+<td class="col-weekly col-weekly-w5">229</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,13.9 40.0,8.8 57.0,9.4 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,13.9 40.0,8.8 57.0,9.4 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="13.9" r="2.5" fill="#43a047"/><circle cx="40.0" cy="8.8" r="2.5" fill="#43a047"/><circle cx="57.0" cy="9.4" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">69</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">150</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">218</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">210</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">229</text></svg></td>
+</tr>
+<tr class="row-group">
+<td class="col-name">东唐</td>
+<td>374</td>
+<td>344</td>
+<td>92.0%</td>
+<td class="ach-top3">39.3%</td>
+<td>95</td>
+<td>100</td>
+<td class="ach-green">105.3%</td>
+<td>84</td>
+<td>100</td>
+<td class="ach-green">119.0%</td>
+<td>339</td>
+<td>320</td>
+<td>94.4%</td>
+<td class="ach-top3">38.6%</td>
+<td>153</td>
+<td>182</td>
+<td class="ach-green">119.0%</td>
+<td>56.7%</td>
+<td class="ach-pink">1.1</td>
+<td class="col-weekly">29</td>
+<td class="col-weekly">58</td>
+<td class="col-weekly">92</td>
+<td class="col-weekly">81</td>
+<td class="col-weekly col-weekly-w5">84</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,14.5 40.0,8.0 57.0,10.1 74.0,9.5 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,14.5 40.0,8.0 57.0,10.1 74.0,9.5" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="14.5" r="2.5" fill="#43a047"/><circle cx="40.0" cy="8.0" r="2.5" fill="#43a047"/><circle cx="57.0" cy="10.1" r="2.5" fill="#43a047"/><circle cx="74.0" cy="9.5" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">29</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">58</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">92</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">81</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">84</text></svg></td>
+</tr>
+<tr class="row-group">
+<td class="col-name">一维</td>
+<td>320</td>
+<td>269</td>
+<td>84.1%</td>
+<td>30.7%</td>
+<td>90</td>
+<td>96</td>
+<td class="ach-green">106.7%</td>
+<td>71</td>
+<td>65</td>
+<td class="ach-green">91.5%</td>
+<td>289</td>
+<td>246</td>
+<td>85.1%</td>
+<td>29.7%</td>
+<td>132</td>
+<td>136</td>
+<td class="ach-green">103.0%</td>
+<td>53.2%</td>
+<td class="ach-pink">1.3</td>
+<td class="col-weekly">21</td>
+<td class="col-weekly">45</td>
+<td class="col-weekly">63</td>
+<td class="col-weekly">64</td>
+<td class="col-weekly col-weekly-w5">76</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,14.8 40.0,10.8 57.0,10.6 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,14.8 40.0,10.8 57.0,10.6 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="14.8" r="2.5" fill="#43a047"/><circle cx="40.0" cy="10.8" r="2.5" fill="#43a047"/><circle cx="57.0" cy="10.6" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">21</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">45</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">63</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">64</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">76</text></svg></td>
+</tr>
+<tr class="row-group">
+<td class="col-name">华跃</td>
+<td>113</td>
+<td>104</td>
+<td>92.0%</td>
+<td>11.9%</td>
+<td>29</td>
+<td>30</td>
+<td class="ach-green">103.4%</td>
+<td>25</td>
+<td>19</td>
+<td>76.0%</td>
+<td>120</td>
+<td>99</td>
+<td>82.5%</td>
+<td>12.0%</td>
+<td>57</td>
+<td>47</td>
+<td>82.5%</td>
+<td class="ach-top3">69.2%</td>
+<td class="ach-pink">1.1</td>
+<td class="col-weekly">9</td>
+<td class="col-weekly">16</td>
+<td class="col-weekly">23</td>
+<td class="col-weekly">24</td>
+<td class="col-weekly col-weekly-w5">32</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,16.3 40.0,12.7 57.0,12.2 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,16.3 40.0,12.7 57.0,12.2 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="16.3" r="2.5" fill="#43a047"/><circle cx="40.0" cy="12.7" r="2.5" fill="#43a047"/><circle cx="57.0" cy="12.2" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">9</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">16</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">23</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">24</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">32</text></svg></td>
+</tr>
+<tr class="row-group">
+<td class="col-name">骏威</td>
+<td>179</td>
+<td>4</td>
+<td>2.2%</td>
+<td class="ach-bottom3">0.5%</td>
+<td>62</td>
+<td>2</td>
+<td class="ach-pink">3.2%</td>
+<td>50</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>162</td>
+<td>18</td>
+<td>11.1%</td>
+<td class="ach-bottom3">2.2%</td>
+<td>100</td>
+<td>12</td>
+<td class="ach-pink">12.0%</td>
+<td class="ach-bottom3">50.0%</td>
+<td class="ach-green">0.3</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">1</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">2</td>
+<td class="col-weekly col-weekly-w5">1</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,14.0 40.0,20.0 57.0,8.0 74.0,14.0 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,14.0 40.0,20.0 57.0,8.0 74.0,14.0" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="14.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="14.0" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">1</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">2</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">1</text></svg></td>
+</tr>
+<tr class="row-group">
+<td class="col-name">东富</td>
+<td>169</td>
+<td>155</td>
+<td>91.7%</td>
+<td>17.7%</td>
+<td>45</td>
+<td>48</td>
+<td class="ach-green">106.7%</td>
+<td>37</td>
+<td>39</td>
+<td class="ach-green">105.4%</td>
+<td>167</td>
+<td>145</td>
+<td>86.8%</td>
+<td>17.5%</td>
+<td>77</td>
+<td>83</td>
+<td class="ach-green">107.8%</td>
+<td>62.6%</td>
+<td class="ach-pink">1.3</td>
+<td class="col-weekly">10</td>
+<td class="col-weekly">30</td>
+<td class="col-weekly">40</td>
+<td class="col-weekly">39</td>
+<td class="col-weekly col-weekly-w5">36</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,12.0 40.0,8.0 57.0,8.4 74.0,9.6 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,12.0 40.0,8.0 57.0,8.4 74.0,9.6" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="12.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="8.4" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="9.6" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">10</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">30</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">40</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">39</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">36</text></svg></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section-wrap section-2">
+<div class="section-label">门店明细</div>
+
+<table>
+<thead>
+<tr class="cat-header">
+<th rowspan="2" style="width:140px;min-width:140px">门店</th>
+<th colspan="10">锁单</th>
+<th colspan="7">交付</th>
+<th colspan="2">库存</th>
+<th colspan="5" class="col-weekly">周度订单</th>
+</tr>
+<tr>
+<th>净增目标</th><th>月累计</th><th>达成率</th><th>城市份额</th><th style="min-width:85px">A系<br>目标120%</th><th style="min-width:70px">A系<br>完成</th><th style="min-width:78px">A系<br>完成率</th><th style="min-width:95px">B10+C10<br>目标120%</th><th style="min-width:80px">B10+C10<br>完成</th><th style="min-width:90px">B10+C10<br>完成率</th>
+<th>目标</th><th>月累计</th><th>达成率</th><th>城市份额</th><th style="min-width:95px">三个10<br>目标</th><th style="min-width:95px">三个10<br>完成</th><th style="min-width:95px">三个10<br>完成率</th>
+<th>现车占比</th><th>库存深度</th>
+<th class="col-weekly">W1<br>8.1-8.2</th><th class="col-weekly">W2<br>8.3-8.9</th><th class="col-weekly">W3<br>8.10-8.16</th><th class="col-weekly">W4<br>8.17-8.23</th><th class="col-weekly col-weekly-w5">W5<br>8.24-8.31</th><th class="col-weekly" style="min-width:90px">周订单趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-store">
+<td class="col-name">东城店</td>
+<td>59</td>
+<td>79</td>
+<td class="ach-top3">133.9%</td>
+<td>9.0%</td>
+<td>18</td>
+<td>25</td>
+<td class="ach-green">138.9%</td>
+<td>10</td>
+<td>17</td>
+<td class="ach-green">170.0%</td>
+<td>54</td>
+<td>65</td>
+<td>120.4%</td>
+<td>7.9%</td>
+<td>25</td>
+<td>36</td>
+<td class="ach-green">144.0%</td>
+<td>78.3%</td>
+<td>0.90</td>
+<td class="col-weekly">7</td>
+<td class="col-weekly">17</td>
+<td class="col-weekly">22</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly col-weekly-w5">15</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,12.0 40.0,8.0 57.0,11.2 74.0,13.6 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,12.0 40.0,8.0 57.0,11.2 74.0,13.6" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="12.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="11.2" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="13.6" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">7</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">17</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">22</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">18</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">15</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">松山湖店</td>
+<td>77</td>
+<td>76</td>
+<td class="ach-top3">98.7%</td>
+<td>8.7%</td>
+<td>18</td>
+<td>14</td>
+<td>77.8%</td>
+<td>16</td>
+<td>27</td>
+<td class="ach-green">168.8%</td>
+<td>60</td>
+<td>74</td>
+<td>123.3%</td>
+<td>8.9%</td>
+<td>24</td>
+<td>38</td>
+<td class="ach-green">158.3%</td>
+<td class="ach-pink">47.4%</td>
+<td class="ach-pink">1.09</td>
+<td class="col-weekly">6</td>
+<td class="col-weekly">11</td>
+<td class="col-weekly">20</td>
+<td class="col-weekly">15</td>
+<td class="col-weekly col-weekly-w5">24</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,16.7 40.0,10.7 57.0,14.0 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,16.7 40.0,10.7 57.0,14.0 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="16.7" r="2.5" fill="#43a047"/><circle cx="40.0" cy="10.7" r="2.5" fill="#43a047"/><circle cx="57.0" cy="14.0" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">6</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">11</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">20</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">15</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">24</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">石排大道店</td>
+<td>94</td>
+<td>74</td>
+<td>78.7%</td>
+<td>8.4%</td>
+<td>21</td>
+<td>16</td>
+<td>76.2%</td>
+<td>24</td>
+<td>29</td>
+<td class="ach-green">120.8%</td>
+<td>88</td>
+<td>74</td>
+<td>84.1%</td>
+<td>8.9%</td>
+<td>40</td>
+<td>43</td>
+<td class="ach-green">107.5%</td>
+<td class="ach-pink">47.3%</td>
+<td class="ach-pink">1.20</td>
+<td class="col-weekly">8</td>
+<td class="col-weekly">12</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">17</td>
+<td class="col-weekly col-weekly-w5">19</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,15.6 40.0,9.1 57.0,10.2 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,15.6 40.0,9.1 57.0,10.2 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="15.6" r="2.5" fill="#43a047"/><circle cx="40.0" cy="9.1" r="2.5" fill="#43a047"/><circle cx="57.0" cy="10.2" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">8</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">12</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">18</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">17</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">19</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">常朗路店</td>
+<td>133</td>
+<td>105</td>
+<td>78.9%</td>
+<td>12.0%</td>
+<td>34</td>
+<td>35</td>
+<td class="ach-green">102.9%</td>
+<td>32</td>
+<td>27</td>
+<td>84.4%</td>
+<td>127</td>
+<td>98</td>
+<td>77.2%</td>
+<td>11.8%</td>
+<td>59</td>
+<td>56</td>
+<td class="ach-green">94.9%</td>
+<td class="ach-pink">54.3%</td>
+<td class="ach-pink">1.08</td>
+<td class="col-weekly">8</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">28</td>
+<td class="col-weekly">29</td>
+<td class="col-weekly col-weekly-w5">22</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,14.3 40.0,8.6 57.0,8.0 74.0,12.0 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,14.3 40.0,8.6 57.0,8.0 74.0,12.0" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="14.3" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="8.6" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="12.0" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">8</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">18</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">28</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">29</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">22</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">企石店</td>
+<td>11</td>
+<td>10</td>
+<td>90.9%</td>
+<td>1.1%</td>
+<td>4</td>
+<td>10</td>
+<td class="ach-green">250.0%</td>
+<td>2</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>10</td>
+<td>9</td>
+<td>90.0%</td>
+<td>1.1%</td>
+<td>5</td>
+<td>9</td>
+<td class="ach-green">180.0%</td>
+<td>80.0%</td>
+<td>0.68</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">4</td>
+<td class="col-weekly">2</td>
+<td class="col-weekly col-weekly-w5">4</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,20.0 40.0,8.0 57.0,14.0 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,20.0 40.0,8.0 57.0,14.0 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="40.0" cy="8.0" r="2.5" fill="#43a047"/><circle cx="57.0" cy="14.0" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">4</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">2</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">4</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">厚街店</td>
+<td>51</td>
+<td>33</td>
+<td class="ach-bottom3">64.7%</td>
+<td>3.8%</td>
+<td>14</td>
+<td>9</td>
+<td>64.3%</td>
+<td>10</td>
+<td>7</td>
+<td>70.0%</td>
+<td>39</td>
+<td>30</td>
+<td>76.9%</td>
+<td>3.6%</td>
+<td>18</td>
+<td>17</td>
+<td class="ach-green">94.4%</td>
+<td>75.8%</td>
+<td class="ach-pink">1.74</td>
+<td class="col-weekly">2</td>
+<td class="col-weekly">3</td>
+<td class="col-weekly">7</td>
+<td class="col-weekly">8</td>
+<td class="col-weekly col-weekly-w5">13</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,18.9 40.0,14.5 57.0,13.5 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,18.9 40.0,14.5 57.0,13.5 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="18.9" r="2.5" fill="#43a047"/><circle cx="40.0" cy="14.5" r="2.5" fill="#43a047"/><circle cx="57.0" cy="13.5" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">2</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">3</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">7</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">8</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">13</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">大岭山镇店</td>
+<td>50</td>
+<td>33</td>
+<td>66.0%</td>
+<td>3.8%</td>
+<td>15</td>
+<td>14</td>
+<td class="ach-green">93.3%</td>
+<td>9</td>
+<td>9</td>
+<td class="ach-green">100.0%</td>
+<td>44</td>
+<td>33</td>
+<td>75.0%</td>
+<td>4.0%</td>
+<td>20</td>
+<td>20</td>
+<td class="ach-green">100.0%</td>
+<td>54.5%</td>
+<td class="ach-pink">1.07</td>
+<td class="col-weekly">1</td>
+<td class="col-weekly">6</td>
+<td class="col-weekly">6</td>
+<td class="col-weekly">6</td>
+<td class="col-weekly col-weekly-w5">14</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,15.4 40.0,15.4 57.0,15.4 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,15.4 40.0,15.4 57.0,15.4 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="15.4" r="2.5" fill="#43a047"/><circle cx="40.0" cy="15.4" r="2.5" fill="#43a047"/><circle cx="57.0" cy="15.4" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">1</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">6</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">6</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">6</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">14</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">长安振安东路店</td>
+<td>55</td>
+<td>52</td>
+<td class="ach-top3">94.5%</td>
+<td>5.9%</td>
+<td>20</td>
+<td>16</td>
+<td>80.0%</td>
+<td>13</td>
+<td>22</td>
+<td class="ach-green">169.2%</td>
+<td>47</td>
+<td>47</td>
+<td>100.0%</td>
+<td>5.7%</td>
+<td>25</td>
+<td>34</td>
+<td class="ach-green">136.0%</td>
+<td>55.8%</td>
+<td class="ach-pink">1.56</td>
+<td class="col-weekly">7</td>
+<td class="col-weekly">8</td>
+<td class="col-weekly">14</td>
+<td class="col-weekly">13</td>
+<td class="col-weekly col-weekly-w5">10</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,18.3 40.0,8.0 57.0,9.7 74.0,14.9 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,18.3 40.0,8.0 57.0,9.7 74.0,14.9" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="18.3" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="9.7" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="14.9" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">7</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">8</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">14</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">13</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">10</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">莞太路店</td>
+<td>164</td>
+<td>151</td>
+<td>92.1%</td>
+<td>17.2%</td>
+<td>41</td>
+<td>57</td>
+<td class="ach-green">139.0%</td>
+<td>39</td>
+<td>27</td>
+<td>69.2%</td>
+<td>159</td>
+<td>136</td>
+<td>85.5%</td>
+<td>16.4%</td>
+<td>69</td>
+<td>65</td>
+<td class="ach-green">94.2%</td>
+<td class="ach-pink">47.0%</td>
+<td class="ach-pink">1.25</td>
+<td class="col-weekly">11</td>
+<td class="col-weekly">28</td>
+<td class="col-weekly">36</td>
+<td class="col-weekly">37</td>
+<td class="col-weekly col-weekly-w5">39</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,12.7 40.0,9.3 57.0,8.9 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,12.7 40.0,9.3 57.0,8.9 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="12.7" r="2.5" fill="#43a047"/><circle cx="40.0" cy="9.3" r="2.5" fill="#43a047"/><circle cx="57.0" cy="8.9" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">11</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">28</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">36</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">37</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">39</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">虎门车城店</td>
+<td>113</td>
+<td>104</td>
+<td>92.0%</td>
+<td>11.9%</td>
+<td>29</td>
+<td>30</td>
+<td class="ach-green">103.4%</td>
+<td>25</td>
+<td>19</td>
+<td>76.0%</td>
+<td>120</td>
+<td>99</td>
+<td>82.5%</td>
+<td>12.0%</td>
+<td>57</td>
+<td>47</td>
+<td>82.5%</td>
+<td>69.2%</td>
+<td class="ach-pink">1.11</td>
+<td class="col-weekly">9</td>
+<td class="col-weekly">16</td>
+<td class="col-weekly">23</td>
+<td class="col-weekly">24</td>
+<td class="col-weekly col-weekly-w5">32</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,16.3 40.0,12.7 57.0,12.2 74.0,8.0 74.0,22" fill="#43a047" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,16.3 40.0,12.7 57.0,12.2 74.0,8.0" fill="none" stroke="#43a047" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#43a047"/><circle cx="23.0" cy="16.3" r="2.5" fill="#43a047"/><circle cx="40.0" cy="12.7" r="2.5" fill="#43a047"/><circle cx="57.0" cy="12.2" r="2.5" fill="#43a047"/><circle cx="74.0" cy="8.0" r="2.5" fill="#43a047"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">9</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">16</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">23</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">24</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">32</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">高埗车城店</td>
+<td>68</td>
+<td>0</td>
+<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
+<td>26</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>18</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>61</td>
+<td>0</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td>39</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>-</td>
+<td class="ach-green">-</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly col-weekly-w5">0</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,20.0 40.0,20.0 57.0,20.0 74.0,20.0 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,20.0 40.0,20.0 57.0,20.0 74.0,20.0" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="20.0" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">塘厦车城店</td>
+<td>111</td>
+<td>4</td>
+<td class="ach-bottom3">3.6%</td>
+<td>0.5%</td>
+<td>36</td>
+<td>2</td>
+<td class="ach-pink">5.6%</td>
+<td>32</td>
+<td>0</td>
+<td class="ach-pink">0.0%</td>
+<td>101</td>
+<td>18</td>
+<td>17.8%</td>
+<td>2.2%</td>
+<td>61</td>
+<td>12</td>
+<td class="ach-pink">19.7%</td>
+<td class="ach-pink">50.0%</td>
+<td class="ach-green">0.25</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">1</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly">2</td>
+<td class="col-weekly col-weekly-w5">1</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,14.0 40.0,20.0 57.0,8.0 74.0,14.0 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,14.0 40.0,20.0 57.0,8.0 74.0,14.0" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="14.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="14.0" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">1</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">0</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">2</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">1</text></svg></td>
+</tr>
+<tr class="row-store">
+<td class="col-name">寮步车城店</td>
+<td>169</td>
+<td>155</td>
+<td>91.7%</td>
+<td>17.7%</td>
+<td>45</td>
+<td>48</td>
+<td class="ach-green">106.7%</td>
+<td>37</td>
+<td>39</td>
+<td class="ach-green">105.4%</td>
+<td>167</td>
+<td>145</td>
+<td>86.8%</td>
+<td>17.5%</td>
+<td>77</td>
+<td>83</td>
+<td class="ach-green">107.8%</td>
+<td>62.6%</td>
+<td class="ach-pink">1.29</td>
+<td class="col-weekly">10</td>
+<td class="col-weekly">30</td>
+<td class="col-weekly">40</td>
+<td class="col-weekly">39</td>
+<td class="col-weekly col-weekly-w5">36</td>
+<td class="col-weekly" style="min-width:90px"><svg width="80" height="28" style="vertical-align:middle"><polygon points="6.0,22 6.0,20.0 23.0,12.0 40.0,8.0 57.0,8.4 74.0,9.6 74.0,22" fill="#d32f2f" fill-opacity="0.1"/><polyline points="6.0,20.0 23.0,12.0 40.0,8.0 57.0,8.4 74.0,9.6" fill="none" stroke="#d32f2f" stroke-width="1.5"/><circle cx="6.0" cy="20.0" r="2.5" fill="#d32f2f"/><circle cx="23.0" cy="12.0" r="2.5" fill="#d32f2f"/><circle cx="40.0" cy="8.0" r="2.5" fill="#d32f2f"/><circle cx="57.0" cy="8.4" r="2.5" fill="#d32f2f"/><circle cx="74.0" cy="9.6" r="2.5" fill="#d32f2f"/><text x="6.0" y="27" text-anchor="middle" font-size="8" fill="#555">10</text><text x="23.0" y="27" text-anchor="middle" font-size="8" fill="#555">30</text><text x="40.0" y="27" text-anchor="middle" font-size="8" fill="#555">40</text><text x="57.0" y="27" text-anchor="middle" font-size="8" fill="#555">39</text><text x="74.0" y="27" text-anchor="middle" font-size="8" fill="#555">36</text></svg></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<strong>说明：</strong>本报告为 8月整月汇总（已去除锁单与交付板块的「昨日」列）。 数据截止：8月31日（8月共31天）；月度时间进度：31/31 = 100%。 城市份额(锁单) = 门店月累计锁单 / 东莞总月累计锁单；城市份额(交付) = 门店月累计交付 / 东莞总月累计交付。🟢 锁单达成率前三绿色；🔴 锁单达成率后三红色。 <b>9月版调整：</b>① 锁单板块「A10目标120%」更名为「A系目标120%」（A系=A10，口径不变），表头改为两行显示避免重叠；② 新增「B10+C10目标120% / 完成 / 完成率」，其中 B10+C10目标 = 三个10报表锁单目标 − A10目标，B10+C10完成 = 现车锁单表 B10+C10；③ 交付板块保留「三个10目标/完成/完成率」。 A系完成率 = A系完成 / A系目标120%；B10+C10完成率 = B10+C10完成 / B10+C10目标120%；三个10完成率 = 三个10完成 / 三个10目标。 周度订单展示 W1–W5（W5=8.24-8.31 进行中）；每行右侧「周订单趋势」列展示该集团/门店各周锁单走势。
+</div>
+</div>
+</body>
+</html>
