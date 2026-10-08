@@ -194,6 +194,19 @@ tbody .row-store:nth-child(even) { background: #f1f8e9; }
     background: #c8e6c9;
 }
 
+/* 四列指标排名标色（10/8）：锁单达成率/锁单城市份额/交付完成率/三个10完成率
+   集团第1 · 门店前3 → 绿；集团倒数第1 · 门店后3 → 红（倒数跳过骏威/塘厦/高埗） */
+.rk-top {
+    color: #2e7d32 !important;
+    font-weight: 700;
+    background: #e8f5e9;
+}
+.rk-bot {
+    color: #d32f2f !important;
+    font-weight: 700;
+    background: #ffebee;
+}
+
 /* 门店明细(分区二)中：去掉背景色，仅保留数字变色+加粗 */
 .section-2 .ach-top3,
 .section-2 .ach-bottom3,
@@ -242,7 +255,7 @@ th.col-weekly, td.col-weekly {
 <div class="right">
 <div class="date">数据截止：10月7日</div>
 <div>月度时间进度：已过 7 天 / 10月共 31 天 = 22.6%</div>
-<div style="font-size:11px;color:#9e9e9e;margin-top:2px">版式 v2 · 生成于 2026-10-08 10:37（若没看到这一行说明是浏览器缓存，请强制刷新）</div>
+<div style="font-size:11px;color:#9e9e9e;margin-top:2px">版式 v3 · 生成于 2026-10-08 10:51（若没看到这一行说明是浏览器缓存，请强制刷新）</div>
 </div>
 </div>
 
@@ -291,11 +304,11 @@ th.col-weekly, td.col-weekly {
 <td>397</td>
 <td>198</td>
 <td>49.9%</td>
-<td class="ach-top3">38.3%</td>
+<td class="rk-top">38.3%</td>
 <td><div class="mcell" title="120%挑战目标 33"><div class="mv"><span class="d">11</span><span class="s">/</span><span class="t">26</span></div><div class="mr r-low">42%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">14</span><span class="s">/</span><span class="t">15</span></div><div class="mr r-mid">93%</div></div></td>
-<td class="ach-pink">16.1%</td>
-<td>19.1%</td>
+<td class="rk-top">16.1%</td>
+<td class="rk-top">19.1%</td>
 <td class="ach-top3">60.1%</td>
 <td>0.9</td>
 </tr>
@@ -304,12 +317,12 @@ th.col-weekly, td.col-weekly {
 <td>41</td>
 <td>349</td>
 <td>160</td>
-<td>45.8%</td>
+<td class="rk-bot">45.8%</td>
 <td>30.9%</td>
 <td><div class="mcell" title="120%挑战目标 37"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">29</span></div><div class="mr r-low">10%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 18"><div class="mv"><span class="d">6</span><span class="s">/</span><span class="t">13</span></div><div class="mr r-low">46%</div></div></td>
-<td class="ach-pink">3.4%</td>
-<td>3.2%</td>
+<td class="rk-bot">3.4%</td>
+<td class="rk-bot">3.2%</td>
 <td>45.0%</td>
 <td class="ach-pink">1.4</td>
 </tr>
@@ -318,7 +331,7 @@ th.col-weekly, td.col-weekly {
 <td>28</td>
 <td>195</td>
 <td>102</td>
-<td>52.3%</td>
+<td class="rk-top">52.3%</td>
 <td>19.7%</td>
 <td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">4</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">25%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 10"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">8</span></div><div class="mr r-low">38%</div></div></td>
@@ -333,7 +346,7 @@ th.col-weekly, td.col-weekly {
 <td>122</td>
 <td>57</td>
 <td>46.7%</td>
-<td>11.0%</td>
+<td class="rk-bot">11.0%</td>
 <td><div class="mcell" title="120%挑战目标 9"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">7</span></div><div class="mr r-low">14%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
 <td class="ach-pink">7.6%</td>
@@ -347,7 +360,7 @@ th.col-weekly, td.col-weekly {
 <td>115</td>
 <td>0</td>
 <td>0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
 <td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 7"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-zero">0%</div></div></td>
 <td class="ach-pink">0.0%</td>
@@ -383,12 +396,12 @@ th.col-weekly, td.col-weekly {
 <td>12</td>
 <td>129</td>
 <td>46</td>
-<td>35.7%</td>
+<td class="rk-bot">35.7%</td>
 <td>8.9%</td>
 <td><div class="mcell" title="120%挑战目标 11"><div class="mv"><span class="d">5</span><span class="s">/</span><span class="t">9</span></div><div class="mr r-low">56%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
-<td class="ach-pink">12.0%</td>
-<td>13.9%</td>
+<td class="rk-top">12.0%</td>
+<td class="rk-top">13.9%</td>
 <td>58.7%</td>
 <td>0.93</td>
 </tr>
@@ -397,7 +410,7 @@ th.col-weekly, td.col-weekly {
 <td>21</td>
 <td>86</td>
 <td>47</td>
-<td class="ach-top3">54.7%</td>
+<td class="rk-top">54.7%</td>
 <td>9.1%</td>
 <td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">50%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-low">25%</div></div></td>
@@ -425,12 +438,12 @@ th.col-weekly, td.col-weekly {
 <td>21</td>
 <td>79</td>
 <td>57</td>
-<td class="ach-top3">72.2%</td>
-<td>11.0%</td>
+<td class="rk-top">72.2%</td>
+<td class="rk-top">11.0%</td>
 <td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">20%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-low">50%</div></div></td>
-<td>30.0%</td>
-<td>30.8%</td>
+<td class="rk-top">30.0%</td>
+<td class="rk-top">30.8%</td>
 <td>56.1%</td>
 <td>0.81</td>
 </tr>
@@ -440,11 +453,11 @@ th.col-weekly, td.col-weekly {
 <td>19</td>
 <td>10</td>
 <td>52.6%</td>
-<td>1.9%</td>
+<td class="rk-bot">1.9%</td>
 <td><div class="mcell" title="120%挑战目标 2"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">1</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 2"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">1</span></div><div class="mr r-hi">100%</div></div></td>
-<td>47.1%</td>
-<td>66.7%</td>
+<td class="rk-top">47.1%</td>
+<td class="rk-top">66.7%</td>
 <td>70.0%</td>
 <td>0.69</td>
 </tr>
@@ -454,11 +467,11 @@ th.col-weekly, td.col-weekly {
 <td>167</td>
 <td>88</td>
 <td>52.7%</td>
-<td>17.0%</td>
+<td class="rk-top">17.0%</td>
 <td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">6%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">50%</div></div></td>
 <td class="ach-pink">4.6%</td>
-<td>2.2%</td>
+<td class="rk-bot">2.2%</td>
 <td class="ach-pink">38.6%</td>
 <td class="ach-pink">1.31</td>
 </tr>
@@ -467,12 +480,12 @@ th.col-weekly, td.col-weekly {
 <td>6</td>
 <td>72</td>
 <td>44</td>
-<td class="ach-top3">61.1%</td>
+<td class="rk-top">61.1%</td>
 <td>8.5%</td>
 <td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">33%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-mid">67%</div></div></td>
-<td class="ach-pink">2.8%</td>
-<td>4.3%</td>
+<td class="rk-bot">2.8%</td>
+<td class="rk-bot">4.3%</td>
 <td class="ach-pink">43.2%</td>
 <td class="ach-pink">1.75</td>
 </tr>
@@ -481,11 +494,11 @@ th.col-weekly, td.col-weekly {
 <td>3</td>
 <td>56</td>
 <td>13</td>
-<td class="ach-bottom3">23.2%</td>
-<td>2.5%</td>
+<td class="rk-bot">23.2%</td>
+<td class="rk-bot">2.5%</td>
 <td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-low">50%</div></div></td>
-<td class="ach-pink">4.4%</td>
+<td class="rk-bot">4.4%</td>
 <td>8.3%</td>
 <td>84.6%</td>
 <td class="ach-pink">1.34</td>
@@ -495,12 +508,12 @@ th.col-weekly, td.col-weekly {
 <td>5</td>
 <td>54</td>
 <td>15</td>
-<td>27.8%</td>
-<td>2.9%</td>
+<td class="rk-bot">27.8%</td>
+<td class="rk-bot">2.9%</td>
 <td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
-<td class="ach-pink">0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td class="rk-bot">0.0%</td>
+<td class="rk-bot">0.0%</td>
 <td class="ach-pink">53.3%</td>
 <td class="ach-pink">1.60</td>
 </tr>
@@ -510,7 +523,7 @@ th.col-weekly, td.col-weekly {
 <td>195</td>
 <td>102</td>
 <td>52.3%</td>
-<td>19.7%</td>
+<td class="rk-top">19.7%</td>
 <td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">4</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">25%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 10"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">8</span></div><div class="mr r-low">38%</div></div></td>
 <td class="ach-pink">5.2%</td>
@@ -537,12 +550,12 @@ th.col-weekly, td.col-weekly {
 <td class="zero-lock">0</td>
 <td>68</td>
 <td>0</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
 <td>0.0%</td>
 <td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-zero">0%</div></div></td>
 <td class="ach-pink">0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
 </tr>
@@ -551,12 +564,12 @@ th.col-weekly, td.col-weekly {
 <td class="zero-lock">0</td>
 <td>47</td>
 <td>0</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
 <td>0.0%</td>
 <td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
 <td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
 <td class="ach-pink">0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
 </tr>
@@ -566,6 +579,7 @@ th.col-weekly, td.col-weekly {
 
 <div class="note">
 <strong>分车型锁单列口径：</strong>A05、Lafa5 均为<b>官方逐店下发的月度净增目标</b>（城市合计 A05 84 台 / Lafa5 46 台）；展示目标＝100% 基准口径，单元格悬停可见 120% 挑战目标。完成数取自《本月现车锁单情况》当月各车型锁单（gross 口径），城市整体退订 0 台未按车型扣减。<br>
+<strong>标色规则：</strong>锁单达成率 / 锁单城市份额 / 交付完成率 / 三个10完成率 四列 —— 集团行 <b style="color:#2e7d32">第 1 名标绿</b> / <b style="color:#d32f2f">倒数第 1 名标红</b>； 门店行 <b style="color:#2e7d32">前 3 名标绿</b> / <b style="color:#d32f2f">后 3 名标红</b>； 倒数标红跳过 <b>骏威集团、塘厦门店、高埗门店</b>（不参与红色警示，红色顺延至下一个非跳过行）。<br>
 <strong>商政返利敲重点：</strong><br>
 1、A05专项，A05锁单目标完成率80%到120%梯度奖励分别+500/台，+1000/台，+2000/台；10月和9月退订率均要求≤18%（即锁单交付率≥82%），10月交付80%以上<br>
 2、零售运营豁免：若同城同商26年9月-10月交付目标达成率≥100%，则可享受每台1600元激励（A10全系、A05全系不享受运营激励，但纳入交付目标达成率考核）。10月目标按照2026年10月5日发布为准，后续调整不作为本项豁免规则达成的依据。若同城同商26年9月-10月A10、A05、B10、C10全系（合并计算）交付目标达成率≥100%，且门店26年9月-10月交付目标达成率考核≥100%，则可额外享受每台200元/台激励。
