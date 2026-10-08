@@ -156,6 +156,34 @@ tbody .row-group td { border: 1px solid #bbdefb; }
 .mr.r-low { color: #d32f2f; }
 .mr.r-zero { color: #9e9e9e; }
 
+/* A05锁单专项（配合商务政策）：表头二级分组 + 三列 */
+thead th.th-a05grp {
+    background: #00796b !important;
+    letter-spacing: 1px;
+}
+thead tr.a05-sub th {
+    background: #26a69a !important;
+    font-size: 11px;
+    padding: 4px 2px;
+    font-weight: 500;
+}
+td.col-a05 { border-left: 2px solid #00897b !important; font-weight: 700; }
+td.col-a05-100 { font-weight: 600; }
+td.col-a05-120 { color: #6a1b9a; font-weight: 600; border-right: 2px solid #00897b !important; }
+td.col-a05.v-hi { color: #2e7d32 !important; }
+td.col-a05.v-zero { color: #9e9e9e !important; font-weight: 400; }
+td.col-a05.v-mid { color: #ef6c00 !important; }
+td.col-a05.v-low { color: #d32f2f !important; }
+
+/* 交付完成率列：整列取消背景底纹，与其他栏目底色一致，仅对数字做颜色标注 */
+td.col-delach,
+td.col-delach.rk-top,
+td.col-delach.rk-bot,
+td.col-delach.ach-pink,
+td.col-delach.ach-green {
+    background: transparent !important;
+}
+
 /* 门店行: 白色/极浅绿交替 */
 tbody .row-store { background: white; }
 tbody .row-store:nth-child(even) { background: #f1f8e9; }
@@ -255,7 +283,7 @@ th.col-weekly, td.col-weekly {
 <div class="right">
 <div class="date">数据截止：10月7日</div>
 <div>月度时间进度：已过 7 天 / 10月共 31 天 = 22.6%</div>
-<div style="font-size:11px;color:#9e9e9e;margin-top:2px">版式 v3 · 生成于 2026-10-08 10:51（若没看到这一行说明是浏览器缓存，请强制刷新）</div>
+<div style="font-size:11px;color:#9e9e9e;margin-top:2px">版式 v4 · 生成于 2026-10-08 11:19（若没看到这一行说明是浏览器缓存，请强制刷新）</div>
 </div>
 </div>
 
@@ -270,17 +298,20 @@ th.col-weekly, td.col-weekly {
 <table>
 <thead>
 <tr class="cat-header">
-<th rowspan="2" style="width:140px;min-width:140px">门店</th>
-<th colspan="7">锁单</th>
+<th rowspan="3" style="width:140px;min-width:140px">门店</th>
+<th colspan="8">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
 
 </tr>
 <tr>
-<th>昨日净增</th><th>净增目标</th><th>月净增<br>(扣退订)</th><th>达成率</th><th>城市份额</th><th style="min-width:62px" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计84）；展示=100%基准目标，悬停单元格可看120%挑战目标">A05<br>锁单</th><th style="min-width:62px" title="官方《Lafa5（含ultra）锁单数据提取》逐店月度净增目标（城市合计46）；展示=100%基准目标，悬停可见120%挑战目标">Lafa5<br>锁单</th>
-<th style="min-width:80px">交付<br>完成率</th><th style="min-width:95px">三个10<br>完成率</th>
-<th>现车占比</th><th>库存深度</th>
+<th rowspan="2">昨日净增</th><th rowspan="2">净增目标</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
+<th rowspan="2" style="min-width:80px">交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
+<th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
 
+</tr>
+<tr class="a05-sub">
+<th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
 </tr>
 </thead>
 <tbody>
@@ -291,9 +322,10 @@ th.col-weekly, td.col-weekly {
 <td>517</td>
 <td>43.9%</td>
 <td>100.0%</td>
-<td><div class="mcell" title="120%挑战目标 107"><div class="mv"><span class="d">19</span><span class="s">/</span><span class="t">84</span></div><div class="mr r-low">23%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 61"><div class="mv"><span class="d">25</span><span class="s">/</span><span class="t">46</span></div><div class="mr r-low">54%</div></div></td>
-<td class="ach-pink">8.2%</td>
+<td class="col-a05 v-low" title="100%基准达成 22.6%">19</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">84</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">107</td>
+<td class="col-delach ach-pink">8.2%</td>
 <td>9.7%</td>
 <td>53.8%</td>
 <td>1.1</td>
@@ -305,9 +337,10 @@ th.col-weekly, td.col-weekly {
 <td>198</td>
 <td>49.9%</td>
 <td class="rk-top">38.3%</td>
-<td><div class="mcell" title="120%挑战目标 33"><div class="mv"><span class="d">11</span><span class="s">/</span><span class="t">26</span></div><div class="mr r-low">42%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">14</span><span class="s">/</span><span class="t">15</span></div><div class="mr r-mid">93%</div></div></td>
-<td class="rk-top">16.1%</td>
+<td class="col-a05 v-low" title="100%基准达成 42.3%">11</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">26</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">33</td>
+<td class="col-delach rk-top">16.1%</td>
 <td class="rk-top">19.1%</td>
 <td class="ach-top3">60.1%</td>
 <td>0.9</td>
@@ -319,9 +352,10 @@ th.col-weekly, td.col-weekly {
 <td>160</td>
 <td class="rk-bot">45.8%</td>
 <td>30.9%</td>
-<td><div class="mcell" title="120%挑战目标 37"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">29</span></div><div class="mr r-low">10%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 18"><div class="mv"><span class="d">6</span><span class="s">/</span><span class="t">13</span></div><div class="mr r-low">46%</div></div></td>
-<td class="rk-bot">3.4%</td>
+<td class="col-a05 v-low" title="100%基准达成 10.3%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">29</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">37</td>
+<td class="col-delach rk-bot">3.4%</td>
 <td class="rk-bot">3.2%</td>
 <td>45.0%</td>
 <td class="ach-pink">1.4</td>
@@ -333,9 +367,10 @@ th.col-weekly, td.col-weekly {
 <td>102</td>
 <td class="rk-top">52.3%</td>
 <td>19.7%</td>
-<td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">4</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">25%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 10"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">8</span></div><div class="mr r-low">38%</div></div></td>
-<td class="ach-pink">5.2%</td>
+<td class="col-a05 v-low" title="100%基准达成 25.0%">4</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">16</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">20</td>
+<td class="col-delach ach-pink">5.2%</td>
 <td>6.1%</td>
 <td>55.9%</td>
 <td class="ach-pink">1.1</td>
@@ -347,9 +382,10 @@ th.col-weekly, td.col-weekly {
 <td>57</td>
 <td>46.7%</td>
 <td class="rk-bot">11.0%</td>
-<td><div class="mcell" title="120%挑战目标 9"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">7</span></div><div class="mr r-low">14%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
-<td class="ach-pink">7.6%</td>
+<td class="col-a05 v-low" title="100%基准达成 14.3%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">7</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">9</td>
+<td class="col-delach ach-pink">7.6%</td>
 <td>11.8%</td>
 <td>52.6%</td>
 <td class="ach-pink">1.0</td>
@@ -361,9 +397,10 @@ th.col-weekly, td.col-weekly {
 <td>0</td>
 <td>0.0%</td>
 <td>0.0%</td>
-<td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 7"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-zero">0%</div></div></td>
-<td class="ach-pink">0.0%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">6</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">8</td>
+<td class="col-delach ach-pink">0.0%</td>
 <td>0.0%</td>
 <td class="ach-bottom3">0.0%</td>
 <td class="ach-green">-</td>
@@ -377,17 +414,20 @@ th.col-weekly, td.col-weekly {
 <table>
 <thead>
 <tr class="cat-header">
-<th rowspan="2" style="width:140px;min-width:140px">门店</th>
-<th colspan="7">锁单</th>
+<th rowspan="3" style="width:140px;min-width:140px">门店</th>
+<th colspan="8">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
 
 </tr>
 <tr>
-<th>昨日净增</th><th>净增目标</th><th>月净增<br>(扣退订)</th><th>达成率</th><th>城市份额</th><th style="min-width:62px" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计84）；展示=100%基准目标，悬停单元格可看120%挑战目标">A05<br>锁单</th><th style="min-width:62px" title="官方《Lafa5（含ultra）锁单数据提取》逐店月度净增目标（城市合计46）；展示=100%基准目标，悬停可见120%挑战目标">Lafa5<br>锁单</th>
-<th style="min-width:80px">交付<br>完成率</th><th style="min-width:95px">三个10<br>完成率</th>
-<th>现车占比</th><th>库存深度</th>
+<th rowspan="2">昨日净增</th><th rowspan="2">净增目标</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
+<th rowspan="2" style="min-width:80px">交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
+<th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
 
+</tr>
+<tr class="a05-sub">
+<th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
 </tr>
 </thead>
 <tbody>
@@ -398,9 +438,10 @@ th.col-weekly, td.col-weekly {
 <td>46</td>
 <td class="rk-bot">35.7%</td>
 <td>8.9%</td>
-<td><div class="mcell" title="120%挑战目标 11"><div class="mv"><span class="d">5</span><span class="s">/</span><span class="t">9</span></div><div class="mr r-low">56%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
-<td class="rk-top">12.0%</td>
+<td class="col-a05 v-low" title="100%基准达成 55.6%">5</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">9</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">11</td>
+<td class="col-delach rk-top">12.0%</td>
 <td class="rk-top">13.9%</td>
 <td>58.7%</td>
 <td>0.93</td>
@@ -412,9 +453,10 @@ th.col-weekly, td.col-weekly {
 <td>47</td>
 <td class="rk-top">54.7%</td>
 <td>9.1%</td>
-<td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">50%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-low">25%</div></div></td>
-<td class="ach-pink">10.9%</td>
+<td class="col-a05 v-low" title="100%基准达成 50.0%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">6</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">8</td>
+<td class="col-delach ach-pink">10.9%</td>
 <td>13.0%</td>
 <td>64.1%</td>
 <td>0.98</td>
@@ -426,9 +468,10 @@ th.col-weekly, td.col-weekly {
 <td>38</td>
 <td>45.2%</td>
 <td>7.4%</td>
-<td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">9</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-hi">300%</div></div></td>
-<td class="ach-pink">9.9%</td>
+<td class="col-a05 v-low" title="100%基准达成 40.0%">2</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">5</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">6</td>
+<td class="col-delach ach-pink">9.9%</td>
 <td>12.5%</td>
 <td>65.8%</td>
 <td>1.00</td>
@@ -440,9 +483,10 @@ th.col-weekly, td.col-weekly {
 <td>57</td>
 <td class="rk-top">72.2%</td>
 <td class="rk-top">11.0%</td>
-<td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">20%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-low">50%</div></div></td>
-<td class="rk-top">30.0%</td>
+<td class="col-a05 v-low" title="100%基准达成 20.0%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">5</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">6</td>
+<td class="col-delach rk-top">30.0%</td>
 <td class="rk-top">30.8%</td>
 <td>56.1%</td>
 <td>0.81</td>
@@ -454,9 +498,10 @@ th.col-weekly, td.col-weekly {
 <td>10</td>
 <td>52.6%</td>
 <td class="rk-bot">1.9%</td>
-<td><div class="mcell" title="120%挑战目标 2"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">1</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 2"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">1</span></div><div class="mr r-hi">100%</div></div></td>
-<td class="rk-top">47.1%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">1</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">2</td>
+<td class="col-delach rk-top">47.1%</td>
 <td class="rk-top">66.7%</td>
 <td>70.0%</td>
 <td>0.69</td>
@@ -468,9 +513,10 @@ th.col-weekly, td.col-weekly {
 <td>88</td>
 <td>52.7%</td>
 <td class="rk-top">17.0%</td>
-<td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">6%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">50%</div></div></td>
-<td class="ach-pink">4.6%</td>
+<td class="col-a05 v-low" title="100%基准达成 6.2%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">16</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">20</td>
+<td class="col-delach ach-pink">4.6%</td>
 <td class="rk-bot">2.2%</td>
 <td class="ach-pink">38.6%</td>
 <td class="ach-pink">1.31</td>
@@ -482,9 +528,10 @@ th.col-weekly, td.col-weekly {
 <td>44</td>
 <td class="rk-top">61.1%</td>
 <td>8.5%</td>
-<td><div class="mcell" title="120%挑战目标 8"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">6</span></div><div class="mr r-low">33%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-mid">67%</div></div></td>
-<td class="rk-bot">2.8%</td>
+<td class="col-a05 v-low" title="100%基准达成 33.3%">2</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">6</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">8</td>
+<td class="col-delach rk-bot">2.8%</td>
 <td class="rk-bot">4.3%</td>
 <td class="ach-pink">43.2%</td>
 <td class="ach-pink">1.75</td>
@@ -496,9 +543,10 @@ th.col-weekly, td.col-weekly {
 <td>13</td>
 <td class="rk-bot">23.2%</td>
 <td class="rk-bot">2.5%</td>
-<td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-low">50%</div></div></td>
-<td class="rk-bot">4.4%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">3</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">4</td>
+<td class="col-delach rk-bot">4.4%</td>
 <td>8.3%</td>
 <td>84.6%</td>
 <td class="ach-pink">1.34</td>
@@ -510,9 +558,10 @@ th.col-weekly, td.col-weekly {
 <td>15</td>
 <td class="rk-bot">27.8%</td>
 <td class="rk-bot">2.9%</td>
-<td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
-<td class="rk-bot">0.0%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">4</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">5</td>
+<td class="col-delach rk-bot">0.0%</td>
 <td class="rk-bot">0.0%</td>
 <td class="ach-pink">53.3%</td>
 <td class="ach-pink">1.60</td>
@@ -524,9 +573,10 @@ th.col-weekly, td.col-weekly {
 <td>102</td>
 <td>52.3%</td>
 <td class="rk-top">19.7%</td>
-<td><div class="mcell" title="120%挑战目标 20"><div class="mv"><span class="d">4</span><span class="s">/</span><span class="t">16</span></div><div class="mr r-low">25%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 10"><div class="mv"><span class="d">3</span><span class="s">/</span><span class="t">8</span></div><div class="mr r-low">38%</div></div></td>
-<td class="ach-pink">5.2%</td>
+<td class="col-a05 v-low" title="100%基准达成 25.0%">4</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">16</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">20</td>
+<td class="col-delach ach-pink">5.2%</td>
 <td>6.1%</td>
 <td class="ach-pink">55.9%</td>
 <td class="ach-pink">1.08</td>
@@ -538,9 +588,10 @@ th.col-weekly, td.col-weekly {
 <td>57</td>
 <td>46.7%</td>
 <td>11.0%</td>
-<td><div class="mcell" title="120%挑战目标 9"><div class="mv"><span class="d">1</span><span class="s">/</span><span class="t">7</span></div><div class="mr r-low">14%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 6"><div class="mv"><span class="d">2</span><span class="s">/</span><span class="t">5</span></div><div class="mr r-low">40%</div></div></td>
-<td class="ach-pink">7.6%</td>
+<td class="col-a05 v-low" title="100%基准达成 14.3%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">7</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">9</td>
+<td class="col-delach ach-pink">7.6%</td>
 <td>11.8%</td>
 <td class="ach-pink">52.6%</td>
 <td class="ach-pink">1.03</td>
@@ -552,9 +603,10 @@ th.col-weekly, td.col-weekly {
 <td>0</td>
 <td>0.0%</td>
 <td>0.0%</td>
-<td><div class="mcell" title="120%挑战目标 5"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">4</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 4"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">3</span></div><div class="mr r-zero">0%</div></div></td>
-<td class="ach-pink">0.0%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">4</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">5</td>
+<td class="col-delach ach-pink">0.0%</td>
 <td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
@@ -566,9 +618,10 @@ th.col-weekly, td.col-weekly {
 <td>0</td>
 <td>0.0%</td>
 <td>0.0%</td>
-<td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
-<td><div class="mcell" title="120%挑战目标 3"><div class="mv"><span class="d">0</span><span class="s">/</span><span class="t">2</span></div><div class="mr r-zero">0%</div></div></td>
-<td class="ach-pink">0.0%</td>
+<td class="col-a05 v-zero" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">2</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">3</td>
+<td class="col-delach ach-pink">0.0%</td>
 <td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
@@ -578,7 +631,8 @@ th.col-weekly, td.col-weekly {
 </div>
 
 <div class="note">
-<strong>分车型锁单列口径：</strong>A05、Lafa5 均为<b>官方逐店下发的月度净增目标</b>（城市合计 A05 84 台 / Lafa5 46 台）；展示目标＝100% 基准口径，单元格悬停可见 120% 挑战目标。完成数取自《本月现车锁单情况》当月各车型锁单（gross 口径），城市整体退订 0 台未按车型扣减。<br>
+<strong>A05锁单专项口径：</strong>三列分别为 <b>目前锁单量</b>（当月 A05 锁单 gross，未按车型扣减退订）、<b>100%目标</b>（官方《A05锁单数据提取》逐店月度净增目标，城市合计 84 台）、<b>120%目标</b>（100%目标 ×1.2 逐店向上取整，对应商务政策挑战档）；城市整体退订 0 台。<br>
+<strong>交付完成率：</strong>该列<b>不带背景底纹</b>（与其他栏目底色一致），仅对数字做颜色标注（绿＝领先 / 红＝落后 / 低于 20% 自动转红）。<br>
 <strong>标色规则：</strong>锁单达成率 / 锁单城市份额 / 交付完成率 / 三个10完成率 四列 —— 集团行 <b style="color:#2e7d32">第 1 名标绿</b> / <b style="color:#d32f2f">倒数第 1 名标红</b>； 门店行 <b style="color:#2e7d32">前 3 名标绿</b> / <b style="color:#d32f2f">后 3 名标红</b>； 倒数标红跳过 <b>骏威集团、塘厦门店、高埗门店</b>（不参与红色警示，红色顺延至下一个非跳过行）。<br>
 <strong>商政返利敲重点：</strong><br>
 1、A05专项，A05锁单目标完成率80%到120%梯度奖励分别+500/台，+1000/台，+2000/台；10月和9月退订率均要求≤18%（即锁单交付率≥82%），10月交付80%以上<br>
