@@ -5,7 +5,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>东莞销量看板 - 10月16日 · 版式 v10</title>
+<title>东莞销量看板 - 10月16日 · 版式 v11</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -248,6 +248,16 @@ th.col-weekly, td.col-weekly {
 }
 /* W5 区间已到，正常显示该列 */
 
+/* 当前周进行中标记 */
+th.col-weekly .wk-live {
+    display: block;
+    margin-top: 2px;
+    font-size: 9px;
+    font-weight: 500;
+    color: #f57c00;
+    letter-spacing: 0.5px;
+}
+
 .sparkline {
     display: inline-block;
     width: 60px;
@@ -300,13 +310,13 @@ th.col-weekly, td.col-weekly {
 <th colspan="9">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
-
+<th colspan="2" class="col-weekly">周度锁单（含进行中周）</th>
 </tr>
 <tr>
 <th rowspan="2">昨日净增</th><th rowspan="2">净增目标</th><th rowspan="2" title="本月累计退订台数（wb2 官方退订字段）；月净增 = 月新增 − 月累退单">月累退单</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
 <th rowspan="2" style="min-width:95px">月度交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
 <th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
-
+<th rowspan="2" class="col-weekly">W1<br>10.1-10.11</th><th rowspan="2" class="col-weekly col-weekly-w5" title="进行中：截至 10.16 的累计（W2区间 10.12-10.18）">W2<br>10.12-10.18<span class="wk-live">进行中</span></th>
 </tr>
 <tr class="a05-sub">
 <th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
@@ -328,6 +338,8 @@ th.col-weekly, td.col-weekly {
 <td>41.5%</td>
 <td>55.1%</td>
 <td>1.0</td>
+<td class="col-weekly">556</td>
+<td class="col-weekly col-weekly-w5">95</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">东唐</td>
@@ -344,6 +356,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-top">56.4%</td>
 <td class="ach-top3">60.4%</td>
 <td>0.9</td>
+<td class="col-weekly">219</td>
+<td class="col-weekly col-weekly-w5">41</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">一维</td>
@@ -360,6 +374,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-bot">36.8%</td>
 <td>47.6%</td>
 <td class="ach-pink">1.2</td>
+<td class="col-weekly">170</td>
+<td class="col-weekly col-weekly-w5">30</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">东富</td>
@@ -376,6 +392,8 @@ th.col-weekly, td.col-weekly {
 <td>42.1%</td>
 <td>58.6%</td>
 <td>0.9</td>
+<td class="col-weekly">106</td>
+<td class="col-weekly col-weekly-w5">10</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">华跃</td>
@@ -392,6 +410,8 @@ th.col-weekly, td.col-weekly {
 <td>44.1%</td>
 <td>52.0%</td>
 <td>1.0</td>
+<td class="col-weekly">61</td>
+<td class="col-weekly col-weekly-w5">14</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">骏威</td>
@@ -408,6 +428,8 @@ th.col-weekly, td.col-weekly {
 <td>0.0%</td>
 <td class="ach-bottom3">0.0%</td>
 <td class="ach-green">-</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly col-weekly-w5">0</td>
 </tr>
 </tbody>
 </table>
@@ -422,13 +444,13 @@ th.col-weekly, td.col-weekly {
 <th colspan="9">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
-
+<th colspan="2" class="col-weekly">周度锁单（含进行中周）</th>
 </tr>
 <tr>
 <th rowspan="2">昨日净增</th><th rowspan="2">净增目标</th><th rowspan="2" title="本月累计退订台数（wb2 官方退订字段）；月净增 = 月新增 − 月累退单">月累退单</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
 <th rowspan="2" style="min-width:95px">月度交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
 <th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
-
+<th rowspan="2" class="col-weekly">W1<br>10.1-10.11</th><th rowspan="2" class="col-weekly col-weekly-w5" title="进行中：截至 10.16 的累计（W2区间 10.12-10.18）">W2<br>10.12-10.18<span class="wk-live">进行中</span></th>
 </tr>
 <tr class="a05-sub">
 <th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
@@ -450,6 +472,8 @@ th.col-weekly, td.col-weekly {
 <td>40.3%</td>
 <td>62.1%</td>
 <td>0.94</td>
+<td class="col-weekly">53</td>
+<td class="col-weekly col-weekly-w5">13</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">石排大道店</td>
@@ -466,6 +490,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-top">56.2%</td>
 <td>67.3%</td>
 <td>0.75</td>
+<td class="col-weekly">42</td>
+<td class="col-weekly col-weekly-w5">7</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">松山湖店</td>
@@ -482,6 +508,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-top">84.6%</td>
 <td>57.1%</td>
 <td>0.84</td>
+<td class="col-weekly">63</td>
+<td class="col-weekly col-weekly-w5">7</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">东城店</td>
@@ -498,6 +526,8 @@ th.col-weekly, td.col-weekly {
 <td>44.4%</td>
 <td>66.0%</td>
 <td class="ach-pink">1.08</td>
+<td class="col-weekly">50</td>
+<td class="col-weekly col-weekly-w5">-3</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">企石店</td>
@@ -514,6 +544,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-top">108.3%</td>
 <td class="ach-pink">45.0%</td>
 <td>0.81</td>
+<td class="col-weekly">11</td>
+<td class="col-weekly col-weekly-w5">9</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">高胜车城店</td>
@@ -530,6 +562,8 @@ th.col-weekly, td.col-weekly {
 <td>55.6%</td>
 <td class="ach-pink">37.5%</td>
 <td class="ach-green">0.09</td>
+<td class="col-weekly">-</td>
+<td class="col-weekly col-weekly-w5">8</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">莞太路店</td>
@@ -546,6 +580,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-bot">38.2%</td>
 <td class="ach-pink">44.1%</td>
 <td class="ach-pink">1.07</td>
+<td class="col-weekly">92</td>
+<td class="col-weekly col-weekly-w5">16</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">长安振安东路店</td>
@@ -562,6 +598,8 @@ th.col-weekly, td.col-weekly {
 <td>42.6%</td>
 <td class="ach-pink">44.1%</td>
 <td class="ach-pink">1.43</td>
+<td class="col-weekly">49</td>
+<td class="col-weekly col-weekly-w5">5</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">大岭山镇店</td>
@@ -578,6 +616,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-bot">29.2%</td>
 <td>68.4%</td>
 <td>1.00</td>
+<td class="col-weekly">12</td>
+<td class="col-weekly col-weekly-w5">5</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">厚街店</td>
@@ -594,6 +634,8 @@ th.col-weekly, td.col-weekly {
 <td class="rk-bot">30.0%</td>
 <td>57.1%</td>
 <td class="ach-pink">1.32</td>
+<td class="col-weekly">17</td>
+<td class="col-weekly col-weekly-w5">4</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">寮步车城店</td>
@@ -610,6 +652,8 @@ th.col-weekly, td.col-weekly {
 <td>42.1%</td>
 <td>58.6%</td>
 <td>0.89</td>
+<td class="col-weekly">106</td>
+<td class="col-weekly col-weekly-w5">10</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">虎门车城店</td>
@@ -626,6 +670,8 @@ th.col-weekly, td.col-weekly {
 <td>44.1%</td>
 <td class="ach-pink">52.0%</td>
 <td>0.98</td>
+<td class="col-weekly">61</td>
+<td class="col-weekly col-weekly-w5">14</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">塘厦车城店</td>
@@ -642,6 +688,8 @@ th.col-weekly, td.col-weekly {
 <td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly col-weekly-w5">0</td>
 </tr>
 <tr class="row-store">
 <td class="col-name">高埗车城店</td>
@@ -658,6 +706,8 @@ th.col-weekly, td.col-weekly {
 <td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly col-weekly-w5">0</td>
 </tr>
 </tbody>
 </table>
