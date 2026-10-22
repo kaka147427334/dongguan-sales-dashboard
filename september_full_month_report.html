@@ -2,6 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>东莞销量看板 - 9月整月（数据截止9月30日）</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -144,6 +147,41 @@ tbody .row-group td { border: 1px solid #bbdefb; }
 .section-2 thead th {
     background: #43a047;
 }
+/* 分车型锁单列（主表内嵌） */
+.mcell { line-height: 1.2; }
+.mcell .mv { font-size: 11.5px; font-weight: 700; letter-spacing: -0.2px; }
+.mcell .mv .d { color: #1565c0; }
+.mcell .mv .s { color: #bbb; font-weight: 400; margin: 0 1px; }
+.mcell .mv .t { color: #444; }
+.mcell .mr { font-size: 9.5px; font-weight: 600; margin-top: 0; }
+.mr.r-hi { color: #2e7d32; }
+.mr.r-mid { color: #ef6c00; }
+.mr.r-low { color: #d32f2f; }
+.mr.r-zero { color: #9e9e9e; }
+
+/* A05锁单专项（配合商务政策）：表头二级分组 + 三列 */
+thead th.th-a05grp {
+    background: #00796b !important;
+    letter-spacing: 1px;
+}
+thead tr.a05-sub th {
+    background: #26a69a !important;
+    font-size: 11px;
+    padding: 4px 2px;
+    font-weight: 500;
+}
+/* A05 专项三列：字体颜色与表格其他部分一致（10/8），仅用左右竖线做分组 */
+td.col-a05 { border-left: 2px solid #00897b !important; }
+td.col-a05-120 { border-right: 2px solid #00897b !important; }
+
+/* 交付完成率列：整列取消背景底纹，与其他栏目底色一致，仅对数字做颜色标注 */
+td.col-delach,
+td.col-delach.rk-top,
+td.col-delach.rk-bot,
+td.col-delach.ach-pink,
+td.col-delach.ach-green {
+    background: transparent !important;
+}
 
 /* 门店行: 白色/极浅绿交替 */
 tbody .row-store { background: white; }
@@ -183,6 +221,19 @@ tbody .row-store:nth-child(even) { background: #f1f8e9; }
     background: #c8e6c9;
 }
 
+/* 四列指标排名标色（10/8）：锁单达成率/锁单城市份额/交付完成率/三个10完成率
+   集团第1 · 门店前3 → 绿；集团倒数第1 · 门店后3 → 红（倒数跳过骏威/塘厦/高埗） */
+.rk-top {
+    color: #2e7d32 !important;
+    font-weight: 700;
+    background: #e8f5e9;
+}
+.rk-bot {
+    color: #d32f2f !important;
+    font-weight: 700;
+    background: #ffebee;
+}
+
 /* 门店明细(分区二)中：去掉背景色，仅保留数字变色+加粗 */
 .section-2 .ach-top3,
 .section-2 .ach-bottom3,
@@ -196,6 +247,16 @@ th.col-weekly, td.col-weekly {
     display: table-cell !important;
 }
 /* W5 区间已到，正常显示该列 */
+
+/* 当前周进行中标记 */
+th.col-weekly .wk-live {
+    display: block;
+    margin-top: 2px;
+    font-size: 9px;
+    font-weight: 500;
+    color: #f57c00;
+    letter-spacing: 0.5px;
+}
 
 .sparkline {
     display: inline-block;
@@ -235,7 +296,7 @@ th.col-weekly, td.col-weekly {
 </div>
 
 <div style="text-align:right;margin:6px 0;">
-<a href="d_series_ranking.html" style="display:inline-block;padding:6px 18px;background:#1a6ec0;color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600;">D系订单排行榜 →</a>
+<a href="d_series_ranking_sep.html" style="display:inline-block;padding:6px 18px;background:#1a6ec0;color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600;">D系订单排行榜 →</a>
 </div>
 
 <div class="table-wrapper">
@@ -245,109 +306,117 @@ th.col-weekly, td.col-weekly {
 <table>
 <thead>
 <tr class="cat-header">
-<th rowspan="2" style="width:140px;min-width:140px">门店</th>
-<th colspan="7">锁单</th>
+<th rowspan="3" style="width:140px;min-width:140px">门店</th>
+<th colspan="8">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
-<th colspan="5" class="col-weekly">周度订单</th>
+<th colspan="5" class="col-weekly">周度锁单</th>
 </tr>
 <tr>
-<th>净增目标</th><th>月净增<br>(扣退订)</th><th>达成率</th><th>城市份额</th><th style="min-width:85px">A05<br>目标120%</th><th style="min-width:70px">A05<br>完成</th><th style="min-width:78px">A05<br>完成率</th>
-<th style="min-width:80px">交付<br>完成率</th><th style="min-width:95px">三个10<br>完成率</th>
-<th>现车占比</th><th>库存深度</th>
-<th class="col-weekly">W1<br>9.1-9.6</th><th class="col-weekly">W2<br>9.7-9.13</th><th class="col-weekly">W3<br>9.14-9.20</th><th class="col-weekly">W4<br>9.21-9.27</th><th class="col-weekly col-weekly-w5">W5<br>9.28-9.30</th>
+<th rowspan="2">净增目标</th><th rowspan="2" title="本月累计退订台数（wb2 官方退订字段）；月净增 = 月新增 − 月累退单">月累退单</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
+<th rowspan="2" style="min-width:95px">月度交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
+<th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
+<th rowspan="2" class="col-weekly">W1<br>9.1-9.6</th><th rowspan="2" class="col-weekly">W2<br>9.7-9.13</th><th rowspan="2" class="col-weekly">W3<br>9.14-9.20</th><th rowspan="2" class="col-weekly">W4<br>9.21-9.27</th><th rowspan="2" class="col-weekly col-weekly-w5">W5<br>9.28-9.30</th>
+</tr>
+<tr class="a05-sub">
+<th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-dongguan">
 <td class="col-name">东莞</td>
 <td>1144</td>
-<td>950</td>
-<td>83.0%</td>
+<td class="col-cancel">36</td>
+<td>937</td>
+<td>81.9%</td>
 <td>100.0%</td>
-<td>109</td>
-<td>38</td>
-<td>34.9%</td>
-<td class="ach-green">91.3%</td>
+<td class="col-a05" title="100%基准达成 44.2%">38</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">86</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">109</td>
+<td class="col-delach">91.3%</td>
 <td>98.3%</td>
 <td>64.5%</td>
-<td>1.1</td>
+<td>0.9</td>
 <td class="col-weekly">174</td>
 <td class="col-weekly">233</td>
 <td class="col-weekly">198</td>
 <td class="col-weekly">220</td>
-<td class="col-weekly col-weekly-w5">125</td>
+<td class="col-weekly col-weekly-w5">112</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">东唐</td>
 <td>388</td>
-<td>377</td>
-<td>97.2%</td>
-<td class="ach-top3">39.7%</td>
-<td>37</td>
-<td>16</td>
-<td>43.2%</td>
-<td class="ach-green">104.0%</td>
+<td class="col-cancel">8</td>
+<td>376</td>
+<td>96.9%</td>
+<td>40.1%</td>
+<td class="col-a05" title="100%基准达成 55.2%">16</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">29</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">38</td>
+<td class="col-delach">104.0%</td>
 <td>116.7%</td>
 <td>72.7%</td>
-<td>1.0</td>
+<td>0.9</td>
 <td class="col-weekly">72</td>
 <td class="col-weekly">100</td>
 <td class="col-weekly">73</td>
 <td class="col-weekly">72</td>
-<td class="col-weekly col-weekly-w5">60</td>
+<td class="col-weekly col-weekly-w5">59</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">一维</td>
 <td>323</td>
-<td>279</td>
-<td>86.4%</td>
-<td>29.4%</td>
-<td>30</td>
-<td>11</td>
-<td>36.7%</td>
-<td class="ach-green">101.0%</td>
-<td>100.0%</td>
+<td class="col-cancel">20</td>
+<td>270</td>
+<td class="rk-bot">83.6%</td>
+<td>28.8%</td>
+<td class="col-a05" title="100%基准达成 50.0%">11</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">22</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">28</td>
+<td class="col-delach">101.0%</td>
+<td class="rk-bot">100.0%</td>
 <td>52.1%</td>
-<td class="ach-pink">1.3</td>
+<td class="ach-pink">1.0</td>
 <td class="col-weekly">42</td>
 <td class="col-weekly">59</td>
 <td class="col-weekly">71</td>
 <td class="col-weekly">74</td>
-<td class="col-weekly col-weekly-w5">33</td>
+<td class="col-weekly col-weekly-w5">24</td>
 </tr>
 <tr class="row-group">
-<td class="col-name">华跃</td>
-<td>118</td>
-<td>104</td>
-<td>88.1%</td>
-<td>10.9%</td>
-<td>10</td>
-<td>3</td>
-<td>30.0%</td>
-<td class="ach-green">99.1%</td>
-<td>116.4%</td>
-<td>41.3%</td>
-<td>0.9</td>
-<td class="col-weekly">24</td>
-<td class="col-weekly">28</td>
-<td class="col-weekly">18</td>
-<td class="col-weekly">23</td>
-<td class="col-weekly col-weekly-w5">11</td>
+<td class="col-name">东富</td>
+<td>186</td>
+<td class="col-cancel">2</td>
+<td>188</td>
+<td class="rk-top">101.1%</td>
+<td>20.1%</td>
+<td class="col-a05" title="100%基准达成 66.7%">8</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">12</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">15</td>
+<td class="col-delach">106.2%</td>
+<td class="rk-top">120.8%</td>
+<td class="ach-top3">80.5%</td>
+<td>0.8</td>
+<td class="col-weekly">36</td>
+<td class="col-weekly">46</td>
+<td class="col-weekly">36</td>
+<td class="col-weekly">51</td>
+<td class="col-weekly col-weekly-w5">19</td>
 </tr>
 <tr class="row-group">
 <td class="col-name">骏威</td>
 <td>129</td>
 <td>0</td>
-<td>0.0%</td>
-<td class="ach-bottom3">0.0%</td>
-<td>15</td>
 <td>0</td>
 <td>0.0%</td>
-<td class="ach-pink">0.0%</td>
+<td>0.0%</td>
+<td class="col-a05" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">14</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">17</td>
+<td class="col-delach">0.0%</td>
 <td>0.0%</td>
 <td class="ach-bottom3">0.0%</td>
-<td>0.9</td>
+<td class="ach-green">-</td>
 <td class="col-weekly">0</td>
 <td class="col-weekly">0</td>
 <td class="col-weekly">0</td>
@@ -355,23 +424,24 @@ th.col-weekly, td.col-weekly {
 <td class="col-weekly col-weekly-w5">0</td>
 </tr>
 <tr class="row-group">
-<td class="col-name">东富</td>
-<td>186</td>
-<td>190</td>
-<td>102.2%</td>
-<td>20.0%</td>
-<td>17</td>
-<td>8</td>
-<td>47.1%</td>
-<td class="ach-green">106.2%</td>
-<td>120.8%</td>
-<td class="ach-top3">80.5%</td>
+<td class="col-name">华跃</td>
+<td>118</td>
+<td class="col-cancel">6</td>
+<td>103</td>
+<td>87.3%</td>
+<td>11.0%</td>
+<td class="col-a05" title="100%基准达成 33.3%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">9</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">11</td>
+<td class="col-delach">99.1%</td>
+<td>116.4%</td>
+<td>41.3%</td>
 <td>1.0</td>
-<td class="col-weekly">36</td>
-<td class="col-weekly">46</td>
-<td class="col-weekly">36</td>
-<td class="col-weekly">51</td>
-<td class="col-weekly col-weekly-w5">21</td>
+<td class="col-weekly">24</td>
+<td class="col-weekly">28</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">23</td>
+<td class="col-weekly col-weekly-w5">10</td>
 </tr>
 </tbody>
 </table>
@@ -382,90 +452,37 @@ th.col-weekly, td.col-weekly {
 <table>
 <thead>
 <tr class="cat-header">
-<th rowspan="2" style="width:140px;min-width:140px">门店</th>
-<th colspan="7">锁单</th>
+<th rowspan="3" style="width:140px;min-width:140px">门店</th>
+<th colspan="8">锁单</th>
 <th colspan="2">交付</th>
 <th colspan="2">库存</th>
-<th colspan="5" class="col-weekly">周度订单</th>
+<th colspan="5" class="col-weekly">周度锁单</th>
 </tr>
 <tr>
-<th>净增目标</th><th>月净增<br>(扣退订)</th><th>达成率</th><th>城市份额</th><th style="min-width:85px">A05<br>目标120%</th><th style="min-width:70px">A05<br>完成</th><th style="min-width:78px">A05<br>完成率</th>
-<th style="min-width:80px">交付<br>完成率</th><th style="min-width:95px">三个10<br>完成率</th>
-<th>现车占比</th><th>库存深度</th>
-<th class="col-weekly">W1<br>9.1-9.6</th><th class="col-weekly">W2<br>9.7-9.13</th><th class="col-weekly">W3<br>9.14-9.20</th><th class="col-weekly">W4<br>9.21-9.27</th><th class="col-weekly col-weekly-w5">W5<br>9.28-9.30</th>
+<th rowspan="2">净增目标</th><th rowspan="2" title="本月累计退订台数（wb2 官方退订字段）；月净增 = 月新增 − 月累退单">月累退单</th><th rowspan="2">月净增<br>(扣退订)</th><th rowspan="2">达成率</th><th rowspan="2">城市份额</th><th colspan="3" class="th-a05grp" title="官方《A05锁单数据提取》逐店月度净增目标（城市合计 84 台）；120% 目标为商务政策对应挑战档">A05锁单专项</th>
+<th rowspan="2" style="min-width:95px">月度交付<br>完成率</th><th rowspan="2" style="min-width:95px">三个10<br>完成率</th>
+<th rowspan="2">现车占比</th><th rowspan="2">库存深度</th>
+<th rowspan="2" class="col-weekly">W1<br>9.1-9.6</th><th rowspan="2" class="col-weekly">W2<br>9.7-9.13</th><th rowspan="2" class="col-weekly">W3<br>9.14-9.20</th><th rowspan="2" class="col-weekly">W4<br>9.21-9.27</th><th rowspan="2" class="col-weekly col-weekly-w5">W5<br>9.28-9.30</th>
+</tr>
+<tr class="a05-sub">
+<th class="col-a05h">目前锁单量</th><th class="col-a05h">100%目标</th><th class="col-a05h">120%目标</th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-store">
-<td class="col-name">东城店</td>
-<td>78</td>
-<td>83</td>
-<td class="ach-top3">106.4%</td>
-<td>8.7%</td>
-<td>6</td>
-<td>3</td>
-<td>50.0%</td>
-<td class="ach-green">117.1%</td>
-<td>144.2%</td>
-<td>74.7%</td>
-<td>0.89</td>
-<td class="col-weekly">16</td>
-<td class="col-weekly">34</td>
-<td class="col-weekly">14</td>
-<td class="col-weekly">10</td>
-<td class="col-weekly col-weekly-w5">9</td>
-</tr>
-<tr class="row-store">
-<td class="col-name">松山湖店</td>
-<td>75</td>
-<td>90</td>
-<td class="ach-top3">120.0%</td>
-<td>9.5%</td>
-<td>8</td>
-<td>3</td>
-<td>37.5%</td>
-<td class="ach-green">140.6%</td>
-<td>140.0%</td>
-<td>70.3%</td>
-<td>0.90</td>
-<td class="col-weekly">14</td>
-<td class="col-weekly">15</td>
-<td class="col-weekly">17</td>
-<td class="col-weekly">23</td>
-<td class="col-weekly col-weekly-w5">21</td>
-</tr>
-<tr class="row-store">
-<td class="col-name">石排大道店</td>
-<td>88</td>
-<td>75</td>
-<td>85.2%</td>
-<td>7.9%</td>
-<td>9</td>
-<td>5</td>
-<td>55.6%</td>
-<td class="ach-green">100.0%</td>
-<td>96.1%</td>
-<td>69.3%</td>
-<td>0.99</td>
-<td class="col-weekly">17</td>
-<td class="col-weekly">18</td>
-<td class="col-weekly">18</td>
-<td class="col-weekly">15</td>
-<td class="col-weekly col-weekly-w5">7</td>
-</tr>
-<tr class="row-store">
 <td class="col-name">常朗路店</td>
 <td>128</td>
+<td class="col-cancel">2</td>
 <td>108</td>
 <td>84.4%</td>
-<td>11.4%</td>
-<td>11</td>
-<td>4</td>
-<td>36.4%</td>
-<td>86.2%</td>
+<td class="rk-top">11.5%</td>
+<td class="col-a05" title="100%基准达成 57.1%">4</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">7</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">9</td>
+<td class="col-delach">86.2%</td>
 <td>110.4%</td>
 <td>73.6%</td>
-<td class="ach-pink">1.02</td>
+<td class="ach-pink">1.06</td>
 <td class="col-weekly">22</td>
 <td class="col-weekly">27</td>
 <td class="col-weekly">19</td>
@@ -473,18 +490,79 @@ th.col-weekly, td.col-weekly {
 <td class="col-weekly col-weekly-w5">19</td>
 </tr>
 <tr class="row-store">
+<td class="col-name">石排大道店</td>
+<td>88</td>
+<td class="col-cancel">1</td>
+<td>74</td>
+<td>84.1%</td>
+<td>7.9%</td>
+<td class="col-a05" title="100%基准达成 83.3%">5</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">6</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">8</td>
+<td class="col-delach ach-green">100.0%</td>
+<td class="rk-bot">96.1%</td>
+<td>69.3%</td>
+<td>0.81</td>
+<td class="col-weekly">17</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">15</td>
+<td class="col-weekly col-weekly-w5">6</td>
+</tr>
+<tr class="row-store">
+<td class="col-name">松山湖店</td>
+<td>75</td>
+<td class="col-cancel">1</td>
+<td>90</td>
+<td class="rk-top">120.0%</td>
+<td>9.6%</td>
+<td class="col-a05" title="100%基准达成 33.3%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">9</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">11</td>
+<td class="col-delach rk-top">140.6%</td>
+<td class="rk-top">140.0%</td>
+<td>70.3%</td>
+<td>0.78</td>
+<td class="col-weekly">14</td>
+<td class="col-weekly">15</td>
+<td class="col-weekly">17</td>
+<td class="col-weekly">23</td>
+<td class="col-weekly col-weekly-w5">21</td>
+</tr>
+<tr class="row-store">
+<td class="col-name">东城店</td>
+<td>67</td>
+<td class="col-cancel">4</td>
+<td>75</td>
+<td class="rk-top">111.9%</td>
+<td>8.0%</td>
+<td class="col-a05" title="100%基准达成 60.0%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">5</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">6</td>
+<td class="col-delach rk-top">123.1%</td>
+<td class="rk-top">151.4%</td>
+<td>74.7%</td>
+<td class="ach-pink">1.03</td>
+<td class="col-weekly">13</td>
+<td class="col-weekly">31</td>
+<td class="col-weekly">12</td>
+<td class="col-weekly">10</td>
+<td class="col-weekly col-weekly-w5">9</td>
+</tr>
+<tr class="row-store">
 <td class="col-name">企石店</td>
 <td>19</td>
+<td>0</td>
 <td>21</td>
-<td class="ach-top3">110.5%</td>
-<td>2.2%</td>
-<td>3</td>
-<td>1</td>
-<td>33.3%</td>
-<td>72.0%</td>
-<td>90.0%</td>
+<td class="rk-top">110.5%</td>
+<td class="rk-bot">2.2%</td>
+<td class="col-a05" title="100%基准达成 100.0%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">1</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">2</td>
+<td class="col-delach rk-bot">72.0%</td>
+<td class="rk-bot">90.0%</td>
 <td>85.7%</td>
-<td>0.97</td>
+<td>0.75</td>
 <td class="col-weekly">3</td>
 <td class="col-weekly">6</td>
 <td class="col-weekly">5</td>
@@ -492,18 +570,79 @@ th.col-weekly, td.col-weekly {
 <td class="col-weekly col-weekly-w5">4</td>
 </tr>
 <tr class="row-store">
+<td class="col-name">高胜车城店</td>
+<td>11</td>
+<td>0</td>
+<td>8</td>
+<td class="rk-bot">72.7%</td>
+<td class="rk-bot">0.9%</td>
+<td class="col-a05" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">1</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">2</td>
+<td class="col-delach rk-bot">81.8%</td>
+<td>112.5%</td>
+<td>62.5%</td>
+<td class="ach-green">0.10</td>
+<td class="col-weekly">3</td>
+<td class="col-weekly">3</td>
+<td class="col-weekly">2</td>
+<td class="col-weekly">0</td>
+<td class="col-weekly col-weekly-w5">0</td>
+</tr>
+<tr class="row-store">
+<td class="col-name">莞太路店</td>
+<td>165</td>
+<td class="col-cancel">7</td>
+<td>147</td>
+<td>89.1%</td>
+<td class="rk-top">15.7%</td>
+<td class="col-a05" title="100%基准达成 54.5%">6</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">11</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">14</td>
+<td class="col-delach ach-green">113.2%</td>
+<td>111.2%</td>
+<td class="ach-pink">48.7%</td>
+<td>0.99</td>
+<td class="col-weekly">22</td>
+<td class="col-weekly">37</td>
+<td class="col-weekly">39</td>
+<td class="col-weekly">40</td>
+<td class="col-weekly col-weekly-w5">9</td>
+</tr>
+<tr class="row-store">
+<td class="col-name">长安振安东路店</td>
+<td>64</td>
+<td class="col-cancel">7</td>
+<td>45</td>
+<td class="rk-bot">70.3%</td>
+<td>4.8%</td>
+<td class="col-a05" title="100%基准达成 40.0%">2</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">5</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">6</td>
+<td class="col-delach rk-bot">56.2%</td>
+<td class="rk-bot">52.3%</td>
+<td class="ach-pink">55.8%</td>
+<td class="ach-pink">1.17</td>
+<td class="col-weekly">9</td>
+<td class="col-weekly">7</td>
+<td class="col-weekly">16</td>
+<td class="col-weekly">12</td>
+<td class="col-weekly col-weekly-w5">1</td>
+</tr>
+<tr class="row-store">
 <td class="col-name">厚街店</td>
 <td>47</td>
+<td class="col-cancel">3</td>
 <td>38</td>
-<td>80.9%</td>
-<td>4.0%</td>
-<td>4</td>
-<td>2</td>
-<td>50.0%</td>
-<td class="ach-green">110.5%</td>
+<td class="rk-bot">80.9%</td>
+<td class="rk-bot">4.1%</td>
+<td class="col-a05" title="100%基准达成 66.7%">2</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">3</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">4</td>
+<td class="col-delach ach-green">110.5%</td>
 <td>109.1%</td>
 <td class="ach-pink">58.5%</td>
-<td class="ach-pink">1.35</td>
+<td class="ach-pink">1.10</td>
 <td class="col-weekly">5</td>
 <td class="col-weekly">5</td>
 <td class="col-weekly">5</td>
@@ -513,90 +652,55 @@ th.col-weekly, td.col-weekly {
 <tr class="row-store">
 <td class="col-name">大岭山镇店</td>
 <td>47</td>
-<td>41</td>
-<td>87.2%</td>
+<td class="col-cancel">3</td>
+<td>40</td>
+<td>85.1%</td>
 <td>4.3%</td>
-<td>4</td>
-<td>1</td>
-<td class="ach-bottom3">25.0%</td>
-<td class="ach-green">118.4%</td>
-<td>140.9%</td>
+<td class="col-a05" title="100%基准达成 33.3%">1</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">3</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">4</td>
+<td class="col-delach rk-top">118.4%</td>
+<td class="rk-top">140.9%</td>
 <td class="ach-pink">53.5%</td>
-<td class="ach-pink">1.07</td>
+<td>0.91</td>
 <td class="col-weekly">6</td>
 <td class="col-weekly">10</td>
 <td class="col-weekly">11</td>
 <td class="col-weekly">7</td>
-<td class="col-weekly col-weekly-w5">7</td>
+<td class="col-weekly col-weekly-w5">6</td>
 </tr>
 <tr class="row-store">
-<td class="col-name">长安振安东路店</td>
-<td>64</td>
-<td>49</td>
-<td class="ach-bottom3">76.6%</td>
-<td>5.2%</td>
-<td>7</td>
-<td>2</td>
-<td>28.6%</td>
-<td>56.2%</td>
-<td class="ach-bottom3">52.3%</td>
-<td class="ach-pink">55.8%</td>
-<td class="ach-pink">1.53</td>
-<td class="col-weekly">9</td>
-<td class="col-weekly">7</td>
-<td class="col-weekly">16</td>
-<td class="col-weekly">12</td>
-<td class="col-weekly col-weekly-w5">5</td>
+<td class="col-name">寮步车城店</td>
+<td>186</td>
+<td class="col-cancel">2</td>
+<td>188</td>
+<td>101.1%</td>
+<td class="rk-top">20.1%</td>
+<td class="col-a05" title="100%基准达成 66.7%">8</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">12</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">15</td>
+<td class="col-delach ach-green">106.2%</td>
+<td>120.8%</td>
+<td>80.5%</td>
+<td>0.81</td>
+<td class="col-weekly">36</td>
+<td class="col-weekly">46</td>
+<td class="col-weekly">36</td>
+<td class="col-weekly">51</td>
+<td class="col-weekly col-weekly-w5">19</td>
 </tr>
 <tr class="row-store">
-<td class="col-name">莞太路店</td>
-<td>165</td>
-<td>151</td>
-<td>91.5%</td>
-<td>15.9%</td>
-<td>15</td>
-<td>6</td>
-<td>40.0%</td>
-<td class="ach-green">113.2%</td>
-<td>111.2%</td>
-<td class="ach-pink">48.7%</td>
-<td class="ach-pink">1.26</td>
-<td class="col-weekly">22</td>
-<td class="col-weekly">37</td>
-<td class="col-weekly">39</td>
-<td class="col-weekly">40</td>
-<td class="col-weekly col-weekly-w5">13</td>
-</tr>
-<tr class="row-store">
-<td class="col-name">虎门车城店</td>
-<td>118</td>
-<td>104</td>
-<td>88.1%</td>
-<td>10.9%</td>
-<td>10</td>
-<td>3</td>
-<td>30.0%</td>
-<td class="ach-green">99.1%</td>
-<td>116.4%</td>
-<td class="ach-pink">41.3%</td>
-<td>0.95</td>
-<td class="col-weekly">24</td>
-<td class="col-weekly">28</td>
-<td class="col-weekly">18</td>
-<td class="col-weekly">23</td>
-<td class="col-weekly col-weekly-w5">11</td>
-</tr>
-<tr class="row-store">
-<td class="col-name">高埗车城店</td>
-<td>49</td>
+<td class="col-name">塘厦车城店</td>
+<td>80</td>
 <td>0</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0</td>
 <td>0.0%</td>
-<td>6</td>
-<td>0</td>
-<td class="ach-bottom3">0.0%</td>
-<td class="ach-pink">0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
+<td class="col-a05" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">9</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">11</td>
+<td class="col-delach ach-pink">0.0%</td>
+<td>0.0%</td>
 <td>-</td>
 <td class="ach-green">-</td>
 <td class="col-weekly">0</td>
@@ -606,18 +710,19 @@ th.col-weekly, td.col-weekly {
 <td class="col-weekly col-weekly-w5">0</td>
 </tr>
 <tr class="row-store">
-<td class="col-name">塘厦车城店</td>
-<td>80</td>
+<td class="col-name">高埗车城店</td>
+<td>49</td>
 <td>0</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0</td>
 <td>0.0%</td>
-<td>9</td>
-<td>0</td>
-<td class="ach-bottom3">0.0%</td>
-<td class="ach-pink">0.0%</td>
-<td class="ach-bottom3">0.0%</td>
+<td>0.0%</td>
+<td class="col-a05" title="100%基准达成 0.0%">0</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">5</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">6</td>
+<td class="col-delach ach-pink">0.0%</td>
+<td>0.0%</td>
 <td>-</td>
-<td>0.58</td>
+<td class="ach-green">-</td>
 <td class="col-weekly">0</td>
 <td class="col-weekly">0</td>
 <td class="col-weekly">0</td>
@@ -625,23 +730,24 @@ th.col-weekly, td.col-weekly {
 <td class="col-weekly col-weekly-w5">0</td>
 </tr>
 <tr class="row-store">
-<td class="col-name">寮步车城店</td>
-<td>186</td>
-<td>190</td>
-<td>102.2%</td>
-<td>20.0%</td>
-<td>17</td>
-<td>8</td>
-<td>47.1%</td>
-<td class="ach-green">106.2%</td>
-<td>120.8%</td>
-<td>80.5%</td>
-<td>0.95</td>
-<td class="col-weekly">36</td>
-<td class="col-weekly">46</td>
-<td class="col-weekly">36</td>
-<td class="col-weekly">51</td>
-<td class="col-weekly col-weekly-w5">21</td>
+<td class="col-name">虎门车城店</td>
+<td>118</td>
+<td class="col-cancel">6</td>
+<td>103</td>
+<td>87.3%</td>
+<td>11.0%</td>
+<td class="col-a05" title="100%基准达成 33.3%">3</td>
+<td class="col-a05-100" title="官方逐店月度净增目标（100%基准，城市合计 84 台）">9</td>
+<td class="col-a05-120" title="100%目标 ×1.2 逐店向上取整（商务政策挑战档）">11</td>
+<td class="col-delach ach-green">99.1%</td>
+<td>116.4%</td>
+<td class="ach-pink">41.3%</td>
+<td>0.97</td>
+<td class="col-weekly">24</td>
+<td class="col-weekly">28</td>
+<td class="col-weekly">18</td>
+<td class="col-weekly">23</td>
+<td class="col-weekly col-weekly-w5">10</td>
 </tr>
 </tbody>
 </table>
@@ -650,7 +756,8 @@ th.col-weekly, td.col-weekly {
 <div class="note">
 <strong>商政返利敲重点：</strong><br>
 1、A05专项，A05锁单目标完成率80%到120%梯度奖励分别+500/台，+1000/台，+2000/台；10月和9月退订率均要求≤18%（即锁单交付率≥82%），10月交付80%以上<br>
-2、零售运营豁免：若同城同商26年9月-10月交付目标达成率≥100%，则可享受每台1600元激励（A10全系、A05全系不享受运营激励，但纳入交付目标达成率考核）。10月目标按照2026年10月5日发布为准，后续调整不作为本项豁免规则达成的依据。若同城同商26年9月-10月A10、A05、B10、C10全系（合并计算）交付目标达成率≥100%，且门店26年9月-10月交付目标达成率考核≥100%，则可额外享受每台200元/台激励。
+2、零售运营豁免：若同城同商26年9月-10月交付目标达成率≥100%，则可享受每台1600元激励（A10全系、A05全系不享受运营激励，但纳入交付目标达成率考核）。10月目标按照2026年10月5日发布为准，后续调整不作为本项豁免规则达成的依据。若同城同商26年9月-10月A10、A05、B10、C10全系（合并计算）交付目标达成率≥100%，且门店26年9月-10月交付目标达成率考核≥100%，则可额外享受每台200元/台激励。<br>
+3、<span style="color:#c62828;font-weight:800">⚠️无论交付是否达成100%，本月零售运营激励成绩最终所获金额额度都要再乘以线下检核系数</span>
 </div>
 </div>
 </body>
