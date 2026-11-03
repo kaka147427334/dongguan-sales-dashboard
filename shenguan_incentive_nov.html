@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>深莞片区 11 月灵活激励说明</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3f6fb;color:#1b2436;line-height:1.6;padding:0 0 60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(125deg,#0d2a5c 0%,#163b78 55%,#1d4a94 100%);color:#fff;padding:34px 0 30px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;right:-70px;top:-70px;width:280px;height:280px;border:1px solid rgba(212,162,74,.28);border-radius:50%}
+header:before{content:"";position:absolute;right:10px;top:10px;width:170px;height:170px;border:1px solid rgba(212,162,74,.18);border-radius:50%}
+.eyebrow{font-size:12px;letter-spacing:3px;color:#d9b26a;font-weight:700;margin-bottom:10px}
+h1{font-size:29px;font-weight:800;letter-spacing:1px;margin-bottom:8px}
+.sub{font-size:14px;color:#c3d3ee;max-width:760px}
+.meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:9px}
+.meta span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:5px 12px;border-radius:20px;font-size:12px}
+section{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(20,40,80,.06);padding:24px 26px;margin-top:20px}
+h2{font-size:19px;font-weight:800;color:#0d2a5c;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+h2 .no{background:#0d2a5c;color:#fff;width:26px;height:26px;border-radius:7px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.desc{font-size:13px;color:#6b7689;margin-bottom:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{border:1px solid #e6ebf3;border-radius:12px;padding:16px 18px;background:#fbfcfe;position:relative;overflow:hidden}
+.card .bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.card .nm{font-size:17px;font-weight:800;margin-bottom:2px}
+.card .mg{font-size:13px;color:#5a6478}
+.card .tag{display:inline-block;margin-top:9px;font-size:11px;background:#eef3fc;color:#2b4e8c;padding:3px 9px;border-radius:5px}
+.card .tag.warn{background:#fff4e2;color:#a06a12}
+.goal{background:linear-gradient(90deg,#fff9ec,#fff);border-left:4px solid #d4a24a;padding:14px 18px;border-radius:8px;font-size:14px;color:#4a3a18;margin-top:16px}
+.goal b{color:#8a5a10}
+/* 奖金池 */
+.pool{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin:8px 0 4px}
+.pool .total{background:#0d2a5c;color:#fff;border-radius:12px;padding:18px 26px;text-align:center;min-width:190px}
+.pool .total .v{font-size:30px;font-weight:800;color:#f0c477}
+.pool .total .l{font-size:12px;color:#c3d3ee;margin-top:2px}
+.arrow{font-size:24px;color:#c2cbd9;padding:0 14px}
+.pool .half{display:flex;flex-direction:column;gap:10px}
+.pool .h{border:1.5px solid #dbe4f0;border-radius:10px;padding:11px 18px;background:#fbfcfe;min-width:230px}
+.pool .h .t{font-size:13px;font-weight:700;color:#0d2a5c}
+.pool .h .v{font-size:19px;font-weight:800;color:#c8891c}
+.prizes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.prz{border:1px solid #e6ebf3;border-radius:10px;padding:14px;text-align:center;background:#fff}
+.prz.gold{border-color:#e6c88a;background:linear-gradient(160deg,#fffaf0,#fff)}
+.prz .rk{font-size:12px;color:#6b7689;font-weight:700}
+.prz .amt{font-size:24px;font-weight:800;color:#0d2a5c;margin:4px 0}
+.prz.gold .amt{color:#b8801a}
+.prz .note{font-size:11px;color:#8a94a6}
+.formula{text-align:center;font-size:12.5px;color:#5a6478;margin-top:14px;background:#f6f8fc;padding:10px;border-radius:8px}
+.formula b{color:#0d2a5c}
+/* 表格 */
+table{border-collapse:collapse;width:100%;font-size:13px}
+.dt th{background:#0d2a5c;color:#fff;padding:10px 8px;font-weight:600;font-size:12px;text-align:center;white-space:nowrap}
+.dt td{padding:10px 8px;border-bottom:1px solid #edf1f7;text-align:center}
+.dt tbody tr:nth-child(even){background:#fafbfe}
+.dt tbody tr:hover{background:#f0f5ff}
+.dt .num{font-variant-numeric:tabular-nums}
+.dt .avg{background:#f2f7ff;color:#0d2a5c}
+.dt .area{text-align:left;font-weight:700;white-space:nowrap}
+.dt .area i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:7px}
+.dt .area small{display:block;font-weight:400;color:#95a0b3;font-size:11px;padding-left:16px}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge.r1{background:#fff2d6;color:#a8700e;border:1px solid #f0d69a}
+.badge.r2{background:#eaf1ff;color:#2b4e8c;border:1px solid #cddcf7}
+.badge.r3{background:#f0f2f6;color:#6b7689;border:1px solid #e0e5ec}
+.dt.pre td{font-size:12.5px}
+.big{font-size:16px;font-weight:800;color:#b8801a}
+.tc{text-align:center}
+.sm{font-size:12px}
+.sm td{padding:7px 6px}
+.sm th{padding:8px 6px;font-size:11px}
+details{margin-top:16px;border-top:1px dashed #dfe5ee;padding-top:12px}
+summary{cursor:pointer;font-size:13px;color:#2b4e8c;font-weight:700}
+details>div{margin-top:12px;overflow-x:auto}
+/* 图表 */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chartbox{border:1px solid #e6ebf3;border-radius:12px;padding:14px}
+.chartbox h3{font-size:14px;color:#0d2a5c;margin-bottom:4px}
+.chartbox .unit{font-size:11px;color:#98a2b3;margin-bottom:6px}
+.chart{width:100%;height:auto;display:block}
+.lgs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px;font-size:12px;color:#4a5568}
+.lg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.note{font-size:12px;color:#7a8496;background:#f7f9fc;border-radius:8px;padding:10px 14px;margin-top:14px;line-height:1.75}
+.note b{color:#0d2a5c}
+footer{text-align:center;font-size:11.5px;color:#98a2b3;margin-top:24px;line-height:1.9}
+@media(max-width:760px){
+ .grid3,.charts,.prizes{grid-template-columns:1fr}
+ .arrow{transform:rotate(90deg);padding:8px 0}
+ h1{font-size:23px} section{padding:18px 14px}
+ .dt{font-size:11.5px}
+}
+</style></head><body>
+<header><div class="wrap">
+ <div class="eyebrow">华南大区 · 深莞片区 · 零售激励</div>
+ <h1>深莞片区 11 月灵活激励说明</h1>
+ <div class="sub">自 2026 年 11 月起，东莞、深圳中、深圳北三个小区纳入统一激励池。以「锁单目标完成率」与「锁单交付率」双维度考核，兼顾锁单规模达成与锁单质量转化。</div>
+ <div class="meta"><span>适用周期：2026年11月</span><span>激励总额：¥10,000</span><span>覆盖小区：3 个</span><span>生成时间：2026-11-03 17:44</span></div>
+</div></header>
+<div class="wrap">
+
+<section>
+ <h2><span class="no">1</span>激励目的与适用范围</h2>
+ <div class="desc">围绕「提升深莞区域的锁单达成及锁单质量」设置，双指标各占 50%，避免只冲量、不转化。</div>
+ <div class="grid3">
+  <div class="card"><div class="bar" style="background:#1f5fd6"></div>
+   <div class="nm">东莞</div><div class="mg">零售高级经理 · 方任昊</div>
+   <div class="tag">小区口径保持不变</div>
+  </div>  <div class="card"><div class="bar" style="background:#e08a1e"></div>
+   <div class="nm">深圳中</div><div class="mg">零售高级经理 · 贾迪赫</div>
+   <div class="tag warn">报表原名：原深圳南（本说明统一称「深圳中」）</div>
+  </div>  <div class="card"><div class="bar" style="background:#16a34a"></div>
+   <div class="nm">深圳北</div><div class="mg">零售高级经理 · 罗捷</div>
+   <div class="tag">小区口径保持不变</div>
+  </div> </div>
+ <div class="goal"><b>激励目的：</b>提升深莞区域的锁单达成及锁单质量 —— 以「锁单目标完成率」拉动目标兑现，以「锁单交付率」约束锁单有效性，防止虚高锁单与集中退订，推动三个小区在 11 月同步做大规模与做实交付。</div>
+</section>
+
+<section>
+ <h2><span class="no">2</span>奖金池与分配规则</h2>
+ <div class="desc">总额 ¥10,000，按两个考核维度各切分 50%（各 ¥5,000）；每个维度内三个小区单独排名，按名次发放。</div>
+ <div class="pool">
+  <div class="total"><div class="v">¥10,000</div><div class="l">11 月灵活激励总池</div></div>
+  <div class="arrow">➜</div>
+  <div class="half">
+   <div class="h"><div class="t">① 锁单目标完成率　50%</div><div class="v">¥5,000</div></div>
+   <div class="h"><div class="t">② 锁单交付率　　　50%</div><div class="v">¥5,000</div></div>
+  </div>
+ </div>
+ <div class="prizes">
+  <div class="prz gold"><div class="rk">各维度 · 第 1 名</div><div class="amt">¥2,500</div><div class="note">两维度均第 1 → 合计 ¥5,000</div></div>
+  <div class="prz"><div class="rk">各维度 · 第 2 名</div><div class="amt">¥1,500</div><div class="note">两维度均第 2 → 合计 ¥3,000</div></div>
+  <div class="prz"><div class="rk">各维度 · 第 3 名</div><div class="amt">¥1,000</div><div class="note">两维度均第 3 → 合计 ¥2,000</div></div>
+ </div>
+ <div class="formula">单小区当月激励 = <b>锁单目标完成率名次奖金</b> + <b>锁单交付率名次奖金</b>　｜　三个小区每维度合计发放 ¥2,500 + ¥1,500 + ¥1,000 = <b>¥5,000</b>，两维度合计 <b>¥10,000</b></div>
+</section>
+
+<section>
+ <h2><span class="no">3</span>考核口径与评选规则</h2>
+ <table class="dt"><thead><tr><th>考核维度</th><th>权重 / 奖池</th><th>计算口径</th><th>取数来源</th><th>名次与奖金</th></tr></thead><tbody>
+  <tr><td class="area"><i style="background:#1f5fd6"></i>锁单目标完成率</td><td><b>50% · ¥5,000</b></td><td style="text-align:left">当月净增锁单实际 ÷ 当月净增锁单目标<br><small style="color:#8a94a6">官方「净增锁单完成率」口径，含退订冲减</small></td><td style="text-align:left">《目标达成率-零售经理》月报</td><td>第1名 ¥2,500<br>第2名 ¥1,500<br>第3名 ¥1,000</td></tr>
+  <tr><td class="area"><i style="background:#16a34a"></i>锁单交付率</td><td><b>50% · ¥5,000</b></td><td style="text-align:left">当月已交付 ÷ 当月锁单<br><small style="color:#8a94a6">按当月锁单批次统计的官方交付率口径</small></td><td style="text-align:left">《锁单交付率》月报</td><td>第1名 ¥2,500<br>第2名 ¥1,500<br>第3名 ¥1,000</td></tr>
+ </tbody></table>
+ <div class="note">
+  <b>执行细则（建议，可按片区实际调整）：</b><br>
+  ① 两个维度<b>独立排名、独立发奖</b>，不做加权合并，确保「冲量」与「做实质量」两条线都有激励；<br>
+  ② 排名以 <b>2026 年 11 月官方月报</b>最终数据为准，月中滚动数据仅供过程跟踪；<br>
+  ③ 若出现同分，优先取<b>锁单绝对量高者</b>；仍并列则平分对应名次奖金；<br>
+  ④ 两张官方报表分母口径各自独立（目标达成率用「净增锁单」，交付率用「锁单」），<b>不交叉换算</b>，直接采用报表中该小区对应指标值；<br>
+  ⑤ 激励于 11 月月报定稿后一次性核算发放，按小区分配给零售高级经理统筹。
+ </div>
+</section>
+
+<section>
+ <h2><span class="no">4</span>历史基线：2026 年 8–10 月数据</h2>
+ <div class="desc">用于设定 11 月冲刺参照。数值为官方月报口径，百分比保留 1 位小数。</div>
+ <h3 style="font-size:14px;color:#0d2a5c;margin:10px 0 8px">① 锁单目标完成率</h3>
+ <table class="dt"><thead><tr><th>小区</th><th>零售高级经理</th><th>2026-8月</th><th>2026-9月</th><th>2026-10月</th><th>近3月平均</th><th>均值排名</th></tr></thead><tbody><tr><td class="area"><i style="background:#1f5fd6"></i>东莞</td><td>方任昊</td><td class="num"><b>66.5%</b></td><td class="num"><b>80.3%</b></td><td class="num"><b>84.3%</b></td><td class="num avg"><b>77.0%</b></td><td class="tc"><span class="badge r1">第1名</span></td></tr><tr><td class="area"><i style="background:#16a34a"></i>深圳北</td><td>罗捷</td><td class="num"><b>70.5%</b></td><td class="num"><b>68.4%</b></td><td class="num"><b>78.1%</b></td><td class="num avg"><b>72.3%</b></td><td class="tc"><span class="badge r2">第2名</span></td></tr><tr><td class="area"><i style="background:#e08a1e"></i>深圳中<small>原深圳南</small></td><td>贾迪赫</td><td class="num"><b>67.2%</b></td><td class="num"><b>59.6%</b></td><td class="num"><b>73.5%</b></td><td class="num avg"><b>66.8%</b></td><td class="tc"><span class="badge r3">第3名</span></td></tr></tbody></table>
+ <h3 style="font-size:14px;color:#0d2a5c;margin:22px 0 8px">② 锁单交付率</h3>
+ <table class="dt"><thead><tr><th>小区</th><th>零售高级经理</th><th>2026-8月</th><th>2026-9月</th><th>2026-10月</th><th>近3月平均</th><th>均值排名</th></tr></thead><tbody><tr><td class="area"><i style="background:#1f5fd6"></i>东莞</td><td>方任昊</td><td class="num"><b>90.3%</b></td><td class="num"><b>92.8%</b></td><td class="num"><b>80.3%</b></td><td class="num avg"><b>87.8%</b></td><td class="tc"><span class="badge r1">第1名</span></td></tr><tr><td class="area"><i style="background:#16a34a"></i>深圳北</td><td>罗捷</td><td class="num"><b>84.4%</b></td><td class="num"><b>80.0%</b></td><td class="num"><b>79.3%</b></td><td class="num avg"><b>81.2%</b></td><td class="tc"><span class="badge r2">第2名</span></td></tr><tr><td class="area"><i style="background:#e08a1e"></i>深圳中<small>原深圳南</small></td><td>贾迪赫</td><td class="num"><b>85.7%</b></td><td class="num"><b>83.1%</b></td><td class="num"><b>69.0%</b></td><td class="num avg"><b>79.3%</b></td><td class="tc"><span class="badge r3">第3名</span></td></tr></tbody></table>
+ <div class="charts">
+  <div class="chartbox"><h3>锁单目标完成率 · 近三月走势</h3><div class="unit">单位：%　纵轴 55%–90%</div><svg viewBox="0 0 520 232" class="chart" role="img" aria-label="锁单目标完成率走势"><line x1="48" y1="198.0" x2="502" y2="198.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="202.0" text-anchor="end" font-size="11" fill="#8a94a6">55%</text><line x1="48" y1="162.0" x2="502" y2="162.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="166.0" text-anchor="end" font-size="11" fill="#8a94a6">62%</text><line x1="48" y1="126.0" x2="502" y2="126.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="130.0" text-anchor="end" font-size="11" fill="#8a94a6">69%</text><line x1="48" y1="90.0" x2="502" y2="90.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="94.0" text-anchor="end" font-size="11" fill="#8a94a6">76%</text><line x1="48" y1="54.0" x2="502" y2="54.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="58.0" text-anchor="end" font-size="11" fill="#8a94a6">83%</text><line x1="48" y1="18.0" x2="502" y2="18.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="22.0" text-anchor="end" font-size="11" fill="#8a94a6">90%</text><text x="48.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-8月</text><text x="275.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-9月</text><text x="502.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-10月</text><polyline points="48.0,138.9 275.0,67.9 502.0,47.3" fill="none" stroke="#1f5fd6" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="138.9" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="48.0" y="127.9" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">66.5</text><circle cx="275.0" cy="67.9" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="275.0" y="85.9" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">80.3</text><circle cx="502.0" cy="47.3" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="502.0" y="36.3" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">84.3</text><polyline points="48.0,135.3 275.0,174.3 502.0,102.9" fill="none" stroke="#e08a1e" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="135.3" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="48.0" y="124.3" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">67.2</text><circle cx="275.0" cy="174.3" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="275.0" y="192.3" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">59.6</text><circle cx="502.0" cy="102.9" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="502.0" y="91.9" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">73.5</text><polyline points="48.0,118.3 275.0,129.1 502.0,79.2" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="118.3" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="48.0" y="107.3" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">70.5</text><circle cx="275.0" cy="129.1" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="275.0" y="147.1" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">68.4</text><circle cx="502.0" cy="79.2" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="502.0" y="68.2" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">78.1</text></svg></div>
+  <div class="chartbox"><h3>锁单交付率 · 近三月走势</h3><div class="unit">单位：%　纵轴 65%–95%</div><svg viewBox="0 0 520 232" class="chart" role="img" aria-label="锁单交付率走势"><line x1="48" y1="198.0" x2="502" y2="198.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="202.0" text-anchor="end" font-size="11" fill="#8a94a6">65%</text><line x1="48" y1="162.0" x2="502" y2="162.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="166.0" text-anchor="end" font-size="11" fill="#8a94a6">71%</text><line x1="48" y1="126.0" x2="502" y2="126.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="130.0" text-anchor="end" font-size="11" fill="#8a94a6">77%</text><line x1="48" y1="90.0" x2="502" y2="90.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="94.0" text-anchor="end" font-size="11" fill="#8a94a6">83%</text><line x1="48" y1="54.0" x2="502" y2="54.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="58.0" text-anchor="end" font-size="11" fill="#8a94a6">89%</text><line x1="48" y1="18.0" x2="502" y2="18.0" stroke="#e9edf4" stroke-width="1"/><text x="40" y="22.0" text-anchor="end" font-size="11" fill="#8a94a6">95%</text><text x="48.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-8月</text><text x="275.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-9月</text><text x="502.0" y="220" text-anchor="middle" font-size="12" fill="#5a6478" font-weight="600">2026-10月</text><polyline points="48.0,46.2 275.0,31.2 502.0,106.2" fill="none" stroke="#1f5fd6" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="46.2" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="48.0" y="35.2" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">90.3</text><circle cx="275.0" cy="31.2" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="275.0" y="49.2" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">92.8</text><circle cx="502.0" cy="106.2" r="4" fill="#fff" stroke="#1f5fd6" stroke-width="2.4"/><text x="502.0" y="95.2" text-anchor="middle" font-size="11" font-weight="700" fill="#1f5fd6">80.3</text><polyline points="48.0,73.8 275.0,89.4 502.0,174.0" fill="none" stroke="#e08a1e" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="73.8" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="48.0" y="62.8" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">85.7</text><circle cx="275.0" cy="89.4" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="275.0" y="107.4" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">83.1</text><circle cx="502.0" cy="174.0" r="4" fill="#fff" stroke="#e08a1e" stroke-width="2.4"/><text x="502.0" y="163.0" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a1e">69.0</text><polyline points="48.0,81.6 275.0,108.0 502.0,112.2" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="81.6" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="48.0" y="70.6" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">84.4</text><circle cx="275.0" cy="108.0" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="275.0" y="126.0" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">80.0</text><circle cx="502.0" cy="112.2" r="4" fill="#fff" stroke="#16a34a" stroke-width="2.4"/><text x="502.0" y="101.2" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">79.3</text></svg></div>
+ </div>
+ <div class="lgs"><span class="lg"><i style="background:#1f5fd6"></i>东莞·方任昊</span><span class="lg"><i style="background:#e08a1e"></i>深圳中·贾迪赫</span><span class="lg"><i style="background:#16a34a"></i>深圳北·罗捷</span></div>
+ <div class="note"><b>读数提示：</b>东莞（方任昊）三个月两个维度均居首，10 月交付率回落至 80.3% 需重点关注；深圳中（贾迪赫）9 月达成率 59.6% 为区间低点、10 月交付率 69.0% 为三小区最低，是 11 月质量改善的主攻方向；深圳北（罗捷）交付率逐月下行（84.4%→80.0%→79.3%），需止跌。</div>
+</section>
+
+<section>
+ <h2><span class="no">5</span>历史基线预演（非 11 月结果）</h2>
+ <div class="desc">以 8–10 月三个月平均值模拟本规则的排名与奖金分配，仅用于理解规则强度，<b>不代表 11 月实际发放</b>。</div>
+ <table class="dt pre"><thead><tr><th>预演名次</th><th>小区 / 经理</th><th>锁单达成·均值 / 名次 / 奖金</th><th>锁单交付率·均值 / 名次 / 奖金</th><th>合计</th></tr></thead><tbody><tr><td class="tc"><span class="badge r1">第1名</span></td><td class="area"><i style="background:#1f5fd6"></i>东莞<small>方任昊</small></td><td>77.0% · 第1名 · <b>¥2,500</b></td><td>87.8% · 第1名 · <b>¥2,500</b></td><td class="num big">¥5,000</td></tr><tr><td class="tc"><span class="badge r2">第2名</span></td><td class="area"><i style="background:#16a34a"></i>深圳北<small>罗捷</small></td><td>72.3% · 第2名 · <b>¥1,500</b></td><td>81.2% · 第2名 · <b>¥1,500</b></td><td class="num big">¥3,000</td></tr><tr><td class="tc"><span class="badge r3">第3名</span></td><td class="area"><i style="background:#e08a1e"></i>深圳中<small>贾迪赫</small></td><td>66.8% · 第3名 · <b>¥1,000</b></td><td>79.3% · 第3名 · <b>¥1,000</b></td><td class="num big">¥2,000</td></tr></tbody></table>
+ <div class="note">预演显示：按近三月平均，东莞两维度均第 1（¥5,000）、深圳北两维度均第 2（¥3,000）、深圳中两维度均第 3（¥2,000）。<b>单月名次波动会直接改变分配</b>——若深圳中在 11 月把交付率拉回 80% 以上，即可在交付维度反超，单项多得 ¥1,000~1,500，这正是「灵活激励」的设计意图。</div>
+</section>
+
+<section>
+ <h2><span class="no">6</span>原始明细数据</h2>
+ <div class="desc">两个指标的分子/分母逐月展开，便于复核。</div>
+ <table class="dt sm"><thead><tr><th>小区</th><th>月份</th><th>锁单目标</th><th>净增锁单实际</th><th>目标完成率</th><th>锁单（交付口径）</th><th>已交付</th><th>锁单交付率</th></tr></thead><tbody><tr><td class="area" rowspan="3"><i style="background:#1f5fd6"></i>东莞</td><td>2026-8月</td><td class="num">1,155</td><td class="num">768</td><td class="num"><b>66.5%</b></td><td class="num">876</td><td class="num">791</td><td class="num"><b>90.3%</b></td></tr><tr><td>2026-9月</td><td class="num">1,125</td><td class="num">903</td><td class="num"><b>80.3%</b></td><td class="num">973</td><td class="num">903</td><td class="num"><b>92.8%</b></td></tr><tr><td>2026-10月</td><td class="num">1,178</td><td class="num">993</td><td class="num"><b>84.3%</b></td><td class="num">1,063</td><td class="num">854</td><td class="num"><b>80.3%</b></td></tr><tr><td class="area" rowspan="3"><i style="background:#e08a1e"></i>深圳中</td><td>2026-8月</td><td class="num">641</td><td class="num">431</td><td class="num"><b>67.2%</b></td><td class="num">504</td><td class="num">432</td><td class="num"><b>85.7%</b></td></tr><tr><td>2026-9月</td><td class="num">584</td><td class="num">348</td><td class="num"><b>59.6%</b></td><td class="num">427</td><td class="num">355</td><td class="num"><b>83.1%</b></td></tr><tr><td>2026-10月</td><td class="num">567</td><td class="num">417</td><td class="num"><b>73.5%</b></td><td class="num">477</td><td class="num">329</td><td class="num"><b>69.0%</b></td></tr><tr><td class="area" rowspan="3"><i style="background:#16a34a"></i>深圳北</td><td>2026-8月</td><td class="num">677</td><td class="num">477</td><td class="num"><b>70.5%</b></td><td class="num">604</td><td class="num">510</td><td class="num"><b>84.4%</b></td></tr><tr><td>2026-9月</td><td class="num">640</td><td class="num">438</td><td class="num"><b>68.4%</b></td><td class="num">540</td><td class="num">432</td><td class="num"><b>80.0%</b></td></tr><tr><td>2026-10月</td><td class="num">707</td><td class="num">552</td><td class="num"><b>78.1%</b></td><td class="num">647</td><td class="num">513</td><td class="num"><b>79.3%</b></td></tr></tbody></table>
+</section>
+
+<footer>
+ 数据来源：《目标达成率-零售经理》2026-08 / 09 / 10 月报、《锁单交付率》2026 月报（华南大区口径）<br>
+ 深圳中原报表标注为「深圳南」，本说明统一改称「深圳中」，人员与数据口径不变 · 生成于 2026-11-03 17:44
+</footer>
+</div></body></html>
