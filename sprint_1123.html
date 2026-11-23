@@ -76,13 +76,13 @@
   <div class="kpis">
     <div class="kpi"><div class="v" id="kpi-total">679<small>台</small></div><div class="l">片区 23-30 锁单总目标</div></div>
     <div class="kpi"><div class="v">85<small>台/天</small></div><div class="l">片区日均目标（8 天）</div></div>
-    <div class="kpi warn"><div class="v">≥80%</div><div class="l">门店核销兑现线</div></div>
+    <div class="kpi warn"><div class="v">≥60%</div><div class="l">门店核销兑现线</div></div>
     <div class="kpi"><div class="v">28<small>店</small></div><div class="l">参与门店（东莞14 + 深圳14）</div></div>
   </div>
 
   <div class="rule">
-    📣 <b>冲刺规则：</b>11月23日—30日，<b>门店订单达成率 ≥ <span class="stamp">80%</span></b> 方可兑现「<b>易车到店</b>」核销支持；未达 80% 的门店不予核销。
-    各店目标已四舍五入取整，明细表内同时给出各店「80% 核销线」对应台数，达成情况后续以最新数据表刷新。
+    📣 <b>冲刺规则：</b>11月23日—30日，<b>门店订单达成率 ≥ <span class="stamp">60%</span></b> 方可兑现「<b>易车到店</b>」核销支持；未达 60% 的门店不予核销。
+    各店目标已四舍五入取整，明细表内同时给出各店「60% 核销线」对应台数，达成情况后续以最新数据表刷新。
   </div>
 
   <div class="card">
@@ -96,7 +96,7 @@
   </div>
 
   <div class="card">
-    <h2>门店冲刺明细 <small>目标与 80% 核销线均已取整（四舍五入）</small></h2>
+    <h2>门店冲刺明细 <small>目标与 60% 核销线均已取整（四舍五入）</small></h2>
     <div style="overflow-x:auto;">
     <table id="tb">
       <thead>
@@ -107,7 +107,7 @@
           <th style="text-align:left">门店</th>
           <th>23-30<br>目标（台）</th>
           <th>日均<br>（台/天）</th>
-          <th>80% 核销线<br>（台）</th>
+          <th>60% 核销线<br>（台）</th>
         </tr>
       </thead>
       <tbody id="body"></tbody>
@@ -117,7 +117,7 @@
 
   <div class="foot">
     目标口径：锁单日目标查询（2026-11-23 导出，华南大区下发）· 各店目标四舍五入取整后片区合计 679 台 = 东莞 326 + 深圳北 195 + 深圳中 158<br>
-    核销规则：门店达成率 = 完成量 ÷ 目标 ≥ 80% 方可兑现「易车到店」核销 · 片区核销线 543 台 · 达成情况以后续最新数据表刷新 · 生成于 2026-11-23
+    核销规则：门店达成率 = 完成量 ÷ 目标 ≥ 60% 方可兑现「易车到店」核销 · 片区核销线 407 台 · 达成情况以后续最新数据表刷新 · 生成于 2026-11-23
   </div>
 </div>
 
@@ -161,17 +161,17 @@ function render(){
       curMgr = s.mgr;
       const mgrStores = STORES.filter(x => x.mgr === curMgr);
       const mt = mgrStores.reduce((a,x)=>a+x.tgt,0);
-      html += `<tr class="mgr-row"><td>${curMgr}（${mgrStores.length}店）</td><td class="num">合计 ${mt}</td><td class="num">日均 ${Math.round(mt/8)}</td><td class="num">核销线 ${Math.round(mt*0.8)}</td></tr>`;
+      html += `<tr class="mgr-row"><td>${curMgr}（${mgrStores.length}店）</td><td class="num">合计 ${mt}</td><td class="num">日均 ${Math.round(mt/8)}</td><td class="num">核销线 ${Math.round(mt*0.6)}</td></tr>`;
     }
     html += `<tr>
       <td class="store">${s.name}</td>
       <td class="num tgt">${s.tgt}</td>
       <td class="num avg">${Math.round(s.tgt/8)}</td>
-      <td class="num" style="font-weight:700;color:var(--red)">${Math.round(s.tgt*0.8)}</td>
+      <td class="num" style="font-weight:700;color:var(--red)">${Math.round(s.tgt*0.6)}</td>
     </tr>`;
   });
   const grand = STORES.reduce((a,s)=>a+s.tgt,0);
-  html += `<tr class="total-row"><td class="store">片区合计（28店）</td><td class="num">${grand}</td><td class="num">日均 ${Math.round(grand/8)}</td><td class="num">核销线 ${Math.round(grand*0.8)}</td></tr>`;
+  html += `<tr class="total-row"><td class="store">片区合计（28店）</td><td class="num">${grand}</td><td class="num">日均 ${Math.round(grand/8)}</td><td class="num">核销线 ${Math.round(grand*0.6)}</td></tr>`;
   body.innerHTML = html;
 }
 render();
