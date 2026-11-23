@@ -59,22 +59,9 @@
   .num{font-variant-numeric:tabular-nums;}
   .tgt{font-weight:800;color:var(--blue);}
   .avg{color:var(--muted);font-size:11.5px;}
-  input.day{width:46px;padding:4px 3px;border:1px solid #cfd6e2;border-radius:6px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums;}
-  input.day:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 2px rgba(26,79,139,.15);}
   tr.total-row td{background:#f6f8fc;font-weight:800;border-top:2px solid #c9d3e4;}
-  .rate{font-weight:800;}
-  .badge{display:inline-block;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:800;}
-  .badge.ok{background:var(--green-bg);color:var(--green);border:1px solid #b7dcc3;}
-  .badge.no{background:var(--red-bg);color:var(--red);border:1px solid #f2c1bb;}
-  .bar{height:6px;background:#e8ecf3;border-radius:4px;min-width:64px;overflow:hidden;}
-  .bar i{display:block;height:100%;border-radius:4px;}
-  .bar i.ok{background:linear-gradient(90deg,#27ae60,#1e7e34);}
-  .bar i.no{background:linear-gradient(90deg,#e67e22,#c0392b);}
   .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:14px;line-height:1.8;}
-  .tools{display:flex;gap:10px;justify-content:flex-end;padding:10px 16px;background:#f8fafc;border-top:1px solid var(--line);}
-  .tools button{border:1px solid #c9d3e4;background:#fff;border-radius:8px;padding:6px 14px;font-size:12px;color:var(--ink);cursor:pointer;}
-  .tools button:hover{background:#eef2f8;}
-  @media print{ body{background:#fff;padding:0;} .tools{display:none;} input.day{border:none;} }
+  @media print{ body{background:#fff;padding:0;} }
 </style>
 </head>
 <body>
@@ -87,49 +74,40 @@
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="v" id="kpi-total">680.1<small>台</small></div><div class="l">片区 23-30 锁单总目标</div></div>
-    <div class="kpi"><div class="v">85.0<small>台/天</small></div><div class="l">片区日均目标（8 天）</div></div>
+    <div class="kpi"><div class="v" id="kpi-total">679<small>台</small></div><div class="l">片区 23-30 锁单总目标</div></div>
+    <div class="kpi"><div class="v">85<small>台/天</small></div><div class="l">片区日均目标（8 天）</div></div>
     <div class="kpi warn"><div class="v">≥80%</div><div class="l">门店核销兑现线</div></div>
     <div class="kpi"><div class="v">28<small>店</small></div><div class="l">参与门店（东莞14 + 深圳14）</div></div>
   </div>
 
   <div class="rule">
     📣 <b>冲刺规则：</b>11月23日—30日，<b>门店订单达成率 ≥ <span class="stamp">80%</span></b> 方可兑现「<b>易车到店</b>」核销支持；未达 80% 的门店不予核销。
-    各店目标已按 8 天平均拆解为「日均线」，请店长每日填报完成数，看板自动计算达成率与核销资格。
+    各店目标已四舍五入取整，明细表内同时给出各店「80% 核销线」对应台数，达成情况后续以最新数据表刷新。
   </div>
 
   <div class="card">
     <h2>片区作战地图 <small>按城市 / 经理汇总</small></h2>
     <div class="citygrid">
-      <div class="c"><div class="n"><b>东莞</b>（方任昊 · 14店）</div><div class="t">326.0 <small>台 · 日均40.8</small></div></div>
-      <div class="c"><div class="n"><b>深圳北</b>（罗捷 · 7店）</div><div class="t">195.8 <small>台 · 日均24.5</small></div></div>
-      <div class="c"><div class="n"><b>深圳中</b>（郭天文 · 7店）</div><div class="t">158.3 <small>台 · 日均19.8</small></div></div>
-      <div class="c" style="background:#f8fafc"><div class="n"><b>片区合计</b></div><div class="t">680.1 <small>台 · 日均85.0</small></div></div>
+      <div class="c"><div class="n"><b>东莞</b>（方任昊 · 14店）</div><div class="t">326 <small>台 · 日均41</small></div></div>
+      <div class="c"><div class="n"><b>深圳北</b>（罗捷 · 7店）</div><div class="t">195 <small>台 · 日均24</small></div></div>
+      <div class="c"><div class="n"><b>深圳中</b>（郭天文 · 7店）</div><div class="t">158 <small>台 · 日均20</small></div></div>
+      <div class="c" style="background:#f8fafc"><div class="n"><b>片区合计</b></div><div class="t">679 <small>台 · 日均85</small></div></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>门店冲刺明细 <small>填入每日完成数，自动判定核销资格（≥80%）</small></h2>
-    <div class="tools">
-      <button onclick="fillToday()">一键填入今日日期列</button>
-      <button onclick="clearAll()">清空全部填报</button>
-    </div>
+    <h2>门店冲刺明细 <small>目标与 80% 核销线均已取整（四舍五入）</small></h2>
     <div style="overflow-x:auto;">
     <table id="tb">
       <thead>
         <tr class="grp">
-          <th colspan="3" style="text-align:left">门店 / 目标</th>
-          <th colspan="8">每日完成填报（11月）</th>
-          <th colspan="3">达成追踪</th>
+          <th colspan="4" style="text-align:left">门店 / 冲刺目标（11月23日-30日）</th>
         </tr>
         <tr>
           <th style="text-align:left">门店</th>
-          <th>23-30<br>目标</th>
-          <th>日均</th>
-          <th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th>
-          <th>累计</th>
-          <th>达成率</th>
-          <th>核销资格</th>
+          <th>23-30<br>目标（台）</th>
+          <th>日均<br>（台/天）</th>
+          <th>80% 核销线<br>（台）</th>
         </tr>
       </thead>
       <tbody id="body"></tbody>
@@ -138,115 +116,63 @@
   </div>
 
   <div class="foot">
-    目标口径：锁单日目标查询（2026-11-23 导出，华南大区下发）· 片区合计 680.1 台 = 东莞 326.0 + 深圳北 195.8 + 深圳中 158.3<br>
-    填报数据保存在本机浏览器（localStorage），不会上传 · 核销线 = 累计 ÷ 目标 ≥ 80% · 生成于 2026-11-23
+    目标口径：锁单日目标查询（2026-11-23 导出，华南大区下发）· 各店目标四舍五入取整后片区合计 679 台 = 东莞 326 + 深圳北 195 + 深圳中 158<br>
+    核销规则：门店达成率 = 完成量 ÷ 目标 ≥ 80% 方可兑现「易车到店」核销 · 片区核销线 543 台 · 达成情况以后续最新数据表刷新 · 生成于 2026-11-23
   </div>
 </div>
 
 <script>
 const STORES = [
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心寮步车城店', tgt:57.24},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心莞太路店', tgt:48.39},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心常朗路店', tgt:37.70},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心虎门车城店', tgt:33.44},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心松山湖店', tgt:23.79},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心东城店', tgt:22.19},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心长安振安东路店', tgt:21.89},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心石排大道店', tgt:24.61},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心厚街店', tgt:14.59},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心大岭山镇店', tgt:12.52},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞零跑中心塘厦车城店', tgt:12.45},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心高埗车城店', tgt:8.00},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心企石店', tgt:6.98},
-  {mgr:'方任昊（东莞）', city:'东莞', name:'东莞体验中心高胜车城店', tgt:2.19},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳零跑中心宝运达汽车城店', tgt:35.67},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳零跑中心万国城旗舰店', tgt:35.39},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳零跑中心光明车城店', tgt:35.07},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳零跑中心远望车城店', tgt:33.47},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳体验中心龙华中心店', tgt:27.38},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳体验中心杰鹏车城店', tgt:21.64},
-  {mgr:'罗捷（深圳北）', city:'深圳北', name:'深圳体验中心观澜湖新城店', tgt:7.21},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳零跑中心南山嘉进隆店', tgt:39.58},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳零跑中心百世汽车城店', tgt:39.02},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳体验中心龙岗信义店', tgt:21.31},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳体验中心芙蓉路店', tgt:20.72},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳体验中心锦龙大道店', tgt:18.49},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳体验中心福田瑞鹏达店', tgt:18.31},
-  {mgr:'郭天文（深圳中）', city:'深圳中', name:'深圳体验中心启创汽车城店', tgt:0.88},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心寮步车城店', tgt:57},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心莞太路店', tgt:48},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心常朗路店', tgt:38},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心虎门车城店', tgt:33},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心松山湖店', tgt:24},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心东城店', tgt:22},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心长安振安东路店', tgt:22},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心石排大道店', tgt:25},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心厚街店', tgt:15},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心大岭山镇店', tgt:13},
+  {mgr:'方任昊（东莞）', name:'东莞零跑中心塘厦车城店', tgt:12},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心高埗车城店', tgt:8},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心企石店', tgt:7},
+  {mgr:'方任昊（东莞）', name:'东莞体验中心高胜车城店', tgt:2},
+  {mgr:'罗捷（深圳北）', name:'深圳零跑中心宝运达汽车城店', tgt:36},
+  {mgr:'罗捷（深圳北）', name:'深圳零跑中心万国城旗舰店', tgt:35},
+  {mgr:'罗捷（深圳北）', name:'深圳零跑中心光明车城店', tgt:35},
+  {mgr:'罗捷（深圳北）', name:'深圳零跑中心远望车城店', tgt:33},
+  {mgr:'罗捷（深圳北）', name:'深圳体验中心龙华中心店', tgt:27},
+  {mgr:'罗捷（深圳北）', name:'深圳体验中心杰鹏车城店', tgt:22},
+  {mgr:'罗捷（深圳北）', name:'深圳体验中心观澜湖新城店', tgt:7},
+  {mgr:'郭天文（深圳中）', name:'深圳零跑中心南山嘉进隆店', tgt:40},
+  {mgr:'郭天文（深圳中）', name:'深圳零跑中心百世汽车城店', tgt:39},
+  {mgr:'郭天文（深圳中）', name:'深圳体验中心龙岗信义店', tgt:21},
+  {mgr:'郭天文（深圳中）', name:'深圳体验中心芙蓉路店', tgt:21},
+  {mgr:'郭天文（深圳中）', name:'深圳体验中心锦龙大道店', tgt:18},
+  {mgr:'郭天文（深圳中）', name:'深圳体验中心福田瑞鹏达店', tgt:18},
+  {mgr:'郭天文（深圳中）', name:'深圳体验中心启创汽车城店', tgt:1},
 ];
-const DAYS = ['23','24','25','26','27','28','29','30'];
-const KEY = 'sg_sprint_1123';
-const LINE = 0.8;
-
-function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ return {}; } }
-function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
 
 function render(){
-  const data = load();
   const body = document.getElementById('body');
   let html = '', curMgr = null;
-  STORES.forEach((s, idx) => {
+  STORES.forEach(s => {
     if (s.mgr !== curMgr){
       curMgr = s.mgr;
       const mgrStores = STORES.filter(x => x.mgr === curMgr);
       const mt = mgrStores.reduce((a,x)=>a+x.tgt,0);
-      html += `<tr class="mgr-row"><td colspan="2">${curMgr}（${mgrStores.length}店）</td><td class="num">合计 ${mt.toFixed(1)}</td><td colspan="11"></td></tr>`;
+      html += `<tr class="mgr-row"><td>${curMgr}（${mgrStores.length}店）</td><td class="num">合计 ${mt}</td><td class="num">日均 ${Math.round(mt/8)}</td><td class="num">核销线 ${Math.round(mt*0.8)}</td></tr>`;
     }
-    const rec = data[s.name] || {};
-    const cum = DAYS.reduce((a,d)=>a + (parseFloat(rec[d])||0), 0);
-    const rate = s.tgt > 0 ? cum / s.tgt : 0;
-    const ok = rate >= LINE;
     html += `<tr>
       <td class="store">${s.name}</td>
-      <td class="num tgt">${s.tgt.toFixed(1)}</td>
-      <td class="num avg">${(s.tgt/8).toFixed(1)}</td>
-      ${DAYS.map(d=>`<td><input class="day" data-store="${s.name}" data-day="${d}" type="number" min="0" step="1" value="${rec[d] ?? ''}"></td>`).join('')}
-      <td class="num" id="cum-${idx}" style="font-weight:800">${cum ? cum : ''}</td>
-      <td class="num"><div style="display:flex;align-items:center;gap:6px;"><div class="bar"><i class="${ok?'ok':'no'}" style="width:${Math.min(rate*100,100).toFixed(0)}%"></i></div><span class="rate" id="rate-${idx}" style="color:${ok?'var(--green)':'var(--red)'}">${(rate*100).toFixed(0)}%</span></div></td>
-      <td><span class="badge ${ok?'ok':'no'}">${ok?'✅ 可核销':'❌ 未达标'}</span></td>
+      <td class="num tgt">${s.tgt}</td>
+      <td class="num avg">${Math.round(s.tgt/8)}</td>
+      <td class="num" style="font-weight:700;color:var(--red)">${Math.round(s.tgt*0.8)}</td>
     </tr>`;
   });
-  // 片区合计行
-  let dayTotals = DAYS.map(d => STORES.reduce((a,s)=>a+(parseFloat((data[s.name]||{})[d])||0),0));
-  const grandCum = dayTotals.reduce((a,b)=>a+b,0);
-  html += `<tr class="total-row"><td class="store">片区合计（28店）</td><td class="num">680.1</td><td class="num avg">85.0</td>
-    ${dayTotals.map(v=>`<td class="num" style="font-weight:800">${v?v:''}</td>`).join('')}
-    <td class="num">${grandCum?grandCum:''}</td>
-    <td class="num" style="color:${grandCum/680.1>=LINE?'var(--green)':'var(--red)'}">${(grandCum/680.1*100).toFixed(0)}%</td>
-    <td class="num avg">核销线 544.1 台</td></tr>`;
+  const grand = STORES.reduce((a,s)=>a+s.tgt,0);
+  html += `<tr class="total-row"><td class="store">片区合计（28店）</td><td class="num">${grand}</td><td class="num">日均 ${Math.round(grand/8)}</td><td class="num">核销线 ${Math.round(grand*0.8)}</td></tr>`;
   body.innerHTML = html;
-  body.querySelectorAll('input.day').forEach(inp => {
-    inp.addEventListener('input', e => {
-      const d = load();
-      const v = e.target.value;
-      const sName = e.target.dataset.store, day = e.target.dataset.day;
-      if (!d[sName]) d[sName] = {};
-      if (v === '') delete d[sName][day]; else d[sName][day] = v;
-      save(d);
-      renderKeepFocus(sName, day);
-    });
-  });
-}
-function renderKeepFocus(store, day){
-  render();
-  const inp = document.querySelector(`input[data-store="${store}"][data-day="${day}"]`);
-  if (inp){ inp.focus(); const L = inp.value.length; inp.setSelectionRange(L,L); }
-}
-function fillToday(){
-  const now = new Date();
-  const day = String(now.getDate());
-  if (!DAYS.includes(day)){ alert('今天（' + day + '日）不在 23-30 冲刺期内'); return; }
-  const v = prompt('批量填入 11月' + day + ' 日各店完成数（输入一个数值应用到全部门店）：');
-  if (v === null) return;
-  const n = parseFloat(v);
-  if (isNaN(n)){ alert('请输入数字'); return; }
-  const d = load();
-  STORES.forEach(s => { if(!d[s.name]) d[s.name]={}; d[s.name][day] = String(n); });
-  save(d); render();
-}
-function clearAll(){
-  if (!confirm('确定清空全部填报数据？')) return;
-  localStorage.removeItem(KEY); render();
 }
 render();
 </script>
