@@ -74,10 +74,10 @@
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="v" id="kpi-total">679<small>台</small></div><div class="l">片区 23-30 锁单总目标</div></div>
-    <div class="kpi"><div class="v">85<small>台/天</small></div><div class="l">片区日均目标（8 天）</div></div>
+    <div class="kpi"><div class="v" id="kpi-total">649<small>台</small></div><div class="l">片区 23-30 锁单总目标</div></div>
+    <div class="kpi"><div class="v">81<small>台/天</small></div><div class="l">片区日均目标（8 天）</div></div>
     <div class="kpi warn"><div class="v">≥60%</div><div class="l">门店核销兑现线</div></div>
-    <div class="kpi"><div class="v">28<small>店</small></div><div class="l">参与门店（东莞14 + 深圳14）</div></div>
+    <div class="kpi"><div class="v">23<small>店</small></div><div class="l">参与门店（东莞10 + 深圳13）</div></div>
   </div>
 
   <div class="rule">
@@ -88,10 +88,10 @@
   <div class="card">
     <h2>片区作战地图 <small>按城市 / 经理汇总</small></h2>
     <div class="citygrid">
-      <div class="c"><div class="n"><b>东莞</b>（方任昊 · 14店）</div><div class="t">326 <small>台 · 日均41</small></div></div>
+      <div class="c"><div class="n"><b>东莞</b>（方任昊 · 10店）</div><div class="t">297 <small>台 · 日均37</small></div></div>
       <div class="c"><div class="n"><b>深圳北</b>（罗捷 · 7店）</div><div class="t">195 <small>台 · 日均24</small></div></div>
-      <div class="c"><div class="n"><b>深圳中</b>（郭天文 · 7店）</div><div class="t">158 <small>台 · 日均20</small></div></div>
-      <div class="c" style="background:#f8fafc"><div class="n"><b>片区合计</b></div><div class="t">679 <small>台 · 日均85</small></div></div>
+      <div class="c"><div class="n"><b>深圳中</b>（郭天文 · 6店）</div><div class="t">157 <small>台 · 日均20</small></div></div>
+      <div class="c" style="background:#f8fafc"><div class="n"><b>片区合计</b></div><div class="t">649 <small>台 · 日均81</small></div></div>
     </div>
   </div>
 
@@ -116,8 +116,8 @@
   </div>
 
   <div class="foot">
-    目标口径：锁单日目标查询（2026-11-23 导出，华南大区下发）· 各店目标四舍五入取整后片区合计 679 台 = 东莞 326 + 深圳北 195 + 深圳中 158<br>
-    核销规则：门店达成率 = 完成量 ÷ 目标 ≥ 60% 方可兑现「易车到店」核销 · 片区核销线 407 台 · 达成情况以后续最新数据表刷新 · 生成于 2026-11-23
+    目标口径：锁单日目标查询（2026-11-23 导出，华南大区下发）· 各店目标四舍五入取整后片区合计 649 台 = 东莞 297（10店，去掉塘厦/高埗/企石/高胜）+ 深圳北 195 + 深圳中 157（6店，去掉启创）<br>
+    核销规则：门店达成率 = 完成量 ÷ 目标 ≥ 60% 方可兑现「易车到店」核销 · 片区核销线 389 台 · 达成情况以后续最新数据表刷新 · 生成于 2026-11-23
   </div>
 </div>
 
@@ -133,10 +133,6 @@ const STORES = [
   {mgr:'方任昊（东莞）', name:'东莞体验中心石排大道店', tgt:25},
   {mgr:'方任昊（东莞）', name:'东莞体验中心厚街店', tgt:15},
   {mgr:'方任昊（东莞）', name:'东莞体验中心大岭山镇店', tgt:13},
-  {mgr:'方任昊（东莞）', name:'东莞零跑中心塘厦车城店', tgt:12},
-  {mgr:'方任昊（东莞）', name:'东莞体验中心高埗车城店', tgt:8},
-  {mgr:'方任昊（东莞）', name:'东莞体验中心企石店', tgt:7},
-  {mgr:'方任昊（东莞）', name:'东莞体验中心高胜车城店', tgt:2},
   {mgr:'罗捷（深圳北）', name:'深圳零跑中心宝运达汽车城店', tgt:36},
   {mgr:'罗捷（深圳北）', name:'深圳零跑中心万国城旗舰店', tgt:35},
   {mgr:'罗捷（深圳北）', name:'深圳零跑中心光明车城店', tgt:35},
@@ -150,7 +146,6 @@ const STORES = [
   {mgr:'郭天文（深圳中）', name:'深圳体验中心芙蓉路店', tgt:21},
   {mgr:'郭天文（深圳中）', name:'深圳体验中心锦龙大道店', tgt:18},
   {mgr:'郭天文（深圳中）', name:'深圳体验中心福田瑞鹏达店', tgt:18},
-  {mgr:'郭天文（深圳中）', name:'深圳体验中心启创汽车城店', tgt:1},
 ];
 
 function render(){
@@ -171,7 +166,7 @@ function render(){
     </tr>`;
   });
   const grand = STORES.reduce((a,s)=>a+s.tgt,0);
-  html += `<tr class="total-row"><td class="store">片区合计（28店）</td><td class="num">${grand}</td><td class="num">日均 ${Math.round(grand/8)}</td><td class="num">核销线 ${Math.round(grand*0.6)}</td></tr>`;
+  html += `<tr class="total-row"><td class="store">片区合计（23店）</td><td class="num">${grand}</td><td class="num">日均 ${Math.round(grand/8)}</td><td class="num">核销线 ${Math.round(grand*0.6)}</td></tr>`;
   body.innerHTML = html;
 }
 render();
