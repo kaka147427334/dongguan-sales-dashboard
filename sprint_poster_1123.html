@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>深莞片区·月末冲刺令（店长版）</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#ffffff;color:#1a2233;width:900px;}
+  .poster{width:900px;padding:36px 34px 30px;}
+  .top{text-align:center;margin-bottom:22px;}
+  .top .tag{display:inline-block;background:#fdf6e3;border:1px solid #d9b96a;color:#8a6d1a;border-radius:20px;padding:4px 18px;font-size:14px;letter-spacing:4px;margin-bottom:12px;}
+  .top h1{font-size:44px;letter-spacing:8px;font-weight:800;color:#0e1a2f;}
+  .top h1 span{color:#b8860b;}
+  .top .date{margin-top:8px;font-size:16px;color:#5b6478;letter-spacing:2px;}
+  .big{display:flex;gap:14px;margin-bottom:20px;}
+  .big .b{flex:1;background:#f5f7fb;border:1px solid #e3e7ef;border-radius:14px;padding:16px 10px;text-align:center;}
+  .big .v{font-size:38px;font-weight:800;color:#1a4f8b;}
+  .big .v small{font-size:15px;color:#5b6478;font-weight:600;margin-left:2px;}
+  .big .b.warn .v{color:#c0392b;}
+  .big .l{font-size:13px;color:#5b6478;margin-top:4px;letter-spacing:1px;}
+  .rule{background:linear-gradient(135deg,#8f1d14,#c0392b);border-radius:14px;padding:16px 22px;text-align:center;margin-bottom:20px;}
+  .rule .r1{font-size:19px;font-weight:800;letter-spacing:1px;color:#fff;}
+  .rule .r1 b{color:#ffd76e;font-size:22px;}
+  .rule .r2{font-size:15px;margin-top:6px;color:#ffd9d0;font-weight:600;letter-spacing:1px;}
+  table{width:100%;border-collapse:collapse;font-size:15px;table-layout:fixed;}
+  th,td{padding:8px 6px;text-align:center;}
+  thead tr.grp th{background:#0e1a2f;color:#ffd76e;font-size:14px;letter-spacing:2px;padding:8px;}
+  thead th{background:#eaf1fa;color:#243044;font-size:13px;font-weight:700;border-bottom:2px solid #c9d3e4;}
+  thead th .hsub{display:block;font-size:11px;font-weight:500;color:#7a869c;margin-top:2px;letter-spacing:0;}
+  tbody tr:nth-child(odd) td{background:#f8fafc;}
+  td{border-bottom:1px solid #e8ecf3;}
+  td.num{font-variant-numeric:tabular-nums;}
+  .store{text-align:left;font-weight:600;color:#1a2233;}
+  .tgt{font-weight:800;color:#1a4f8b;font-size:16px;}
+  .line{font-weight:800;color:#c0392b;}
+  .city{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;margin-right:7px;vertical-align:1px;letter-spacing:0;}
+  .city.dg{background:#e6f0fc;color:#1a4f8b;}
+  .city.sb{background:#e0f4f1;color:#137a6b;}
+  .city.sz{background:#f0e8fa;color:#6b4a9e;}
+  .pct{font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;}
+  .pct.danger{color:#c0392b;}
+  .pct.mid{color:#1a4f8b;}
+  .pct.ok{color:#1e8449;}
+  .sub{display:block;font-size:11px;color:#98a1b2;margin-top:2px;font-variant-numeric:tabular-nums;}
+  tr.total td{background:#eaf1fa !important;font-weight:800;font-size:15px;border-top:2px solid #1a4f8b;color:#0e1a2f;}
+  tr.total td .hl{color:#c0392b;}
+  .foot{text-align:center;margin-top:18px;font-size:12px;color:#8a93a5;letter-spacing:1px;line-height:1.9;}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="top">
+    <div class="tag">深莞片区 · 销售铁军</div>
+    <h1>月末冲刺令<span> · 决战 8 天</span></h1>
+    <div class="date">11月23日 — 11月30日</div>
+  </div>
+
+  <div class="big">
+    <div class="b"><div class="v">649<small>台</small></div><div class="l">片区冲刺总目标</div></div>
+    <div class="b"><div class="v">81<small>台/天</small></div><div class="l">片区日均目标</div></div>
+    <div class="b warn"><div class="v">60%</div><div class="l">核销兑现线</div></div>
+  </div>
+
+  <div class="rule">
+    <div class="r1">达成率 ≥ <b>60%</b> → 兑现「易车到店」核销支持</div>
+    <div class="r2">未达 60% → 不予核销，一个都不能少</div>
+  </div>
+
+  <table>
+    <colgroup><col style="width:38%"><col style="width:16%"><col style="width:20%"><col style="width:26%"></colgroup>
+    <thead>
+      <tr class="grp"><th colspan="4">各店冲刺目标 &amp; 目前锁单达成进度（截至 11月27日）</th></tr>
+      <tr>
+        <th style="text-align:left">门店</th>
+        <th>冲刺目标（台）</th>
+        <th>60% 核销线（台）</th>
+        <th>保底目标达成进度<span class="hsub">本周锁单 / 核销线</span></th>
+      </tr>
+    </thead>
+    <tbody id="body"></tbody>
+  </table>
+
+  <div class="foot">
+    目标口径：华南大区锁单日目标查询（2026-11-23）· 片区 649 = 东莞 297 + 深圳北 195 + 深圳中 157；核销线按各店取整后加总 390<br>
+    达成进度：本周锁单取《门店六量六率_华南》11/27「当期净增锁单」· 达成率 = 本周锁单 ÷ 60% 核销线台数 · &lt;60% 标红 · 按达成率由低到高排列
+  </div>
+</div>
+
+<script>
+const DATA = [{"name":"远望车城店","city":"深圳北","tgt":33,"line":20,"lock":3,"pct":15},{"name":"南山嘉进隆店","city":"深圳中","tgt":40,"line":24,"lock":5,"pct":21},{"name":"龙华中心店","city":"深圳北","tgt":27,"line":16,"lock":4,"pct":25},{"name":"观澜湖新城店","city":"深圳北","tgt":7,"line":4,"lock":1,"pct":25},{"name":"福田瑞鹏达店","city":"深圳中","tgt":18,"line":11,"lock":3,"pct":27},{"name":"万国城旗舰店","city":"深圳北","tgt":35,"line":21,"lock":6,"pct":29},{"name":"芙蓉路店","city":"深圳中","tgt":21,"line":13,"lock":4,"pct":31},{"name":"宝运达汽车城店","city":"深圳北","tgt":36,"line":22,"lock":7,"pct":32},{"name":"光明车城店","city":"深圳北","tgt":35,"line":21,"lock":8,"pct":38},{"name":"杰鹏车城店","city":"深圳北","tgt":22,"line":13,"lock":5,"pct":38},{"name":"常朗路店","city":"东莞","tgt":38,"line":23,"lock":9,"pct":39},{"name":"石排大道店","city":"东莞","tgt":25,"line":15,"lock":6,"pct":40},{"name":"寮步车城店","city":"东莞","tgt":57,"line":34,"lock":15,"pct":44},{"name":"龙岗信义店","city":"深圳中","tgt":21,"line":13,"lock":6,"pct":46},{"name":"莞太路店","city":"东莞","tgt":48,"line":29,"lock":14,"pct":48},{"name":"松山湖店","city":"东莞","tgt":24,"line":14,"lock":7,"pct":50},{"name":"锦龙大道店","city":"深圳中","tgt":18,"line":11,"lock":6,"pct":55},{"name":"虎门车城店","city":"东莞","tgt":33,"line":20,"lock":11,"pct":55},{"name":"长安振安东路店","city":"东莞","tgt":22,"line":13,"lock":9,"pct":69},{"name":"百世汽车城店","city":"深圳中","tgt":39,"line":23,"lock":17,"pct":74},{"name":"东城店","city":"东莞","tgt":22,"line":13,"lock":10,"pct":77},{"name":"大岭山镇店","city":"东莞","tgt":13,"line":8,"lock":7,"pct":88},{"name":"厚街店","city":"东莞","tgt":15,"line":9,"lock":9,"pct":100}];
+const cityCls = {'东莞':'dg','深圳北':'sb','深圳中':'sz'};
+let html = '';
+DATA.forEach(o => {
+  const cls = o.pct < 60 ? 'danger' : (o.pct >= 100 ? 'ok' : 'mid');
+  html += `<tr><td class="store"><span class="city ${cityCls[o.city]}">${o.city}</span>${o.name}</td>`
+        + `<td class="num tgt">${o.tgt}</td>`
+        + `<td class="num line">${o.line}</td>`
+        + `<td class="num"><span class="pct ${cls}">${o.pct}%</span><span class="sub">${o.lock} / ${o.line} 台</span></td></tr>`;
+});
+const T = DATA.reduce((a,o)=>a+o.tgt,0);
+const N = DATA.reduce((a,o)=>a+o.line,0);
+const L = DATA.reduce((a,o)=>a+o.lock,0);
+const G = Math.round(L/N*100);
+html += `<tr class="total"><td class="store">片区合计 · 23店</td>`
+      + `<td class="num"><span class="hl">${T}</span> 台</td>`
+      + `<td class="num">核销线 <span class="hl">${N}</span> 台</td>`
+      + `<td class="num"><span class="pct">${G}%</span><span class="sub">${L} / ${N} 台</span></td></tr>`;
+document.getElementById('body').innerHTML = html;
+</script>
+</body>
+</html>
